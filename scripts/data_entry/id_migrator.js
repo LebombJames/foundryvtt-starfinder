@@ -1,40 +1,34 @@
 const fs = require('fs');
-const oldPath = "E:\\User Files\\Documents\\GitHub\\foundryvtt-starfinder\\src\\items\\equipment";
-const newPath = ".";
-
 let sanitize = null;
 try {
     sanitize = require("sanitize-filename");
 } catch (err) {   
-}   
+} 
+
+const oldPath = "E:\\User Files\\Documents\\GitHub\\foundryvtt-starfinder\\src\\items\\equipment";
+const newPath = ".";
+
+  
 
 let newFiles = fs.readdirSync(newPath, 'utf8');
 let oldFiles = fs.readdirSync(oldPath, 'utf8');
 
-let newFilesMapped = newFiles.map(i => {
-    if (i.split('.').pop() === "json") {
-        let json = fs.readFileSync(`${newPath}/${i}`, {
-            encoding: 'utf8',
-            flag: 'r+'
-        });
-        
-        return JSON.parse(json);
-    } else {
-        return;
-    };
+let newFilesMapped = newFiles.filter(i => i.split('.').pop() === "json").map(i => {
+    let json = fs.readFileSync(`${newPath}/${i}`, {
+        encoding: 'utf8',
+        flag: 'r+'
+    });
+    
+    return JSON.parse(json);
 });
     
-let oldFilesMapped = oldFiles.map(i => {
-    if (i.split('.').pop() === "json") {
-        let json = fs.readFileSync(`${oldPath}/${i}`, {
-            encoding: 'utf8',
-            flag: 'r+'
-        });
-        
-        return JSON.parse(json);
-    } else {
-        return;
-    };
+let oldFilesMapped = oldFiles.filter(i => i.split('.').pop() === "json").map(i => {
+    let json = fs.readFileSync(`${oldPath}/${i}`, {
+        encoding: 'utf8',
+        flag: 'r+'
+    });
+    
+    return JSON.parse(json);
 });
 
 for (let newFile of newFilesMapped) {
@@ -54,6 +48,8 @@ for (let newFile of newFilesMapped) {
             
             fs.writeFileSync(`Migrated/${filename}.json`, output);
             console.log(`Migrated ${newFile.name} to Migrated/${filename}.json`);
+        } else {
+            console.log(`Didn't find a match for ${newFile.name}!`)
         };
     } catch (err) {
     };

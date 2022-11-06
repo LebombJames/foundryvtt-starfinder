@@ -2,12 +2,12 @@
 
     {{!-- Sheet Header --}}
     <header class="sheet-header flexrow">
-        <img class="profile" src="{{document.img}}" title="{{document.name}}" data-edit="img" />
+        <img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img" />
 
         <div class="header-details flexrow">
             <div class="header-background flexrow">
                 <h1 class="charname">
-                    <input name="name" type="text" value="{{document.name}}" />
+                    <input name="name" type="text" value="{{actor.name}}" />
                 </h1>
             </div>
         </div>
@@ -20,13 +20,13 @@
             <label>{{localize "SFRPG.ItemCollectionSheet.Settings.Header"}}</label>
             <span data-tippy-content="{{localize "SFRPG.ItemCollectionSheet.Settings.LockedTooltip"}}">
                 <label class="checkbox">
-                    <input id="toggle-locked" type="checkbox" name="itemCollection.locked" {{checked itemCollection.locked}} />{{localize "SFRPG.ItemCollectionSheet.Settings.Locked"}}
+                    <input id="toggle-locked" type="checkbox" name="system.locked" {{checked system.locked}} />{{localize "SFRPG.ItemCollectionSheet.Settings.Locked"}}
                 </label>
             </span>
             <label>&nbsp;&nbsp;</label>
             <span data-tippy-content="{{localize "SFRPG.ItemCollectionSheet.Settings.DeleteIfEmptyTooltip"}}">
                 <label class="checkbox">
-                    <input id="toggle-delete-if-empty" type="checkbox" name="itemCollection.deleteIfEmpty" {{checked itemCollection.deleteIfEmpty}} />{{localize "SFRPG.ItemCollectionSheet.Settings.DeleteIfEmpty"}}
+                    <input id="toggle-delete-if-empty" type="checkbox" name="system.deleteIfEmpty" {{checked system.deleteIfEmpty}} />{{localize "SFRPG.ItemCollectionSheet.Settings.DeleteIfEmpty"}}
                 </label>
             </span>
         </div>
@@ -40,6 +40,14 @@
         
                 <div class="item-detail item-uses">{{localize "SFRPG.InventoryCapacity"}}</div>
                 <div class="item-detail item-action">{{localize "SFRPG.InventoryUsage"}}</div>
+
+                <div class="item-controls">
+                {{#if isOwner}}
+                <a class="item-control item-create" title="{{localize "SFRPG.ActorSheet.Inventory.Item.Create"}}" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
+                    <i class="fas fa-plus"></i> {{localize "SFRPG.InventoryAdd"}}
+                </a>
+                {{/if}}
+                </div>
             </li>
         
             <ol class="item-list">

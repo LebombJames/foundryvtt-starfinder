@@ -8,7 +8,8 @@ SFRPG.actorTypes = {
     "npc": "ACTOR.TypeNpc",
     "npc2": "ACTOR.TypeNpc2",
     "starshop": "ACTOR.TypeStarship",
-    "vehicle": "ACTOR.TypeVehicle"
+    "vehicle": "ACTOR.TypeVehicle",
+    "loot": "ACTOR.TypeLoot"
 };
 
 /**

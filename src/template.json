@@ -7,7 +7,8 @@
             "npc2",
             "starship",
             "vehicle",
-            "npc"
+            "npc",
+            "loot"
         ],
         "templates": {
             "common": {
@@ -1156,6 +1157,9 @@
                 "systems": [],
                 "special": []
             }
+        },
+        "loot": {
+            "locked": false
         }
     },
     "Item": {

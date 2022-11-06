@@ -57,6 +57,7 @@ import RollNode from "./module/rolls/rollnode.js";
 import RollContext from "./module/rolls/rollcontext.js";
 import RollTree from "./module/rolls/rolltree.js";
 import { SFRPGTokenHUD } from "./module/token/token-hud.js";
+import { ActorSheetSFRPGLoot } from "./module/actor/sheet/loot.js";
 
 let initTime = null;
 
@@ -88,8 +89,9 @@ Hooks.once('init', async function () {
             ActorSheetSFRPGNPC,
             ActorSheetSFRPGStarship,
             ActorSheetSFRPGVehicle,
+            ActorSheetSFRPGLoot,
             // Item Sheets
-            ItemCollectionSheet,
+            //ItemCollectionSheet,
             ItemSheetSFRPG,            
             // Dialogs
             ActorMovementConfig,
@@ -145,7 +147,8 @@ Hooks.once('init', async function () {
                 Npc: ActorSheetSFRPGNPC,
                 Drone: ActorSheetSFRPGDrone,
                 Starship: ActorSheetSFRPGStarship,
-                Vehicle: ActorSheetSFRPGVehicle
+                Vehicle: ActorSheetSFRPGVehicle,
+                Loot: ActorSheetSFRPGLoot
             },
             Type: ActorSFRPG
         }
@@ -201,6 +204,7 @@ Hooks.once('init', async function () {
     Actors.registerSheet("sfrpg", ActorSheetSFRPGNPC,       { types: ["npc", "npc2"],   makeDefault: true });
     Actors.registerSheet("sfrpg", ActorSheetSFRPGStarship,  { types: ["starship"],      makeDefault: true });
     Actors.registerSheet("sfrpg", ActorSheetSFRPGVehicle,   { types: ["vehicle"],       makeDefault: true });
+    Actors.registerSheet("sfrpg", ActorSheetSFRPGLoot,      { label: "Loot", types: ["loot"],          makeDefault: true });
 
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("sfrpg", ItemSheetSFRPG, { makeDefault: true });

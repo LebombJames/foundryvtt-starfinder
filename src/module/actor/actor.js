@@ -45,6 +45,22 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
         return data;
     }
 
+    get visible() {
+        //Nust be an observer to see loot sheets in the sidebar, as all loot actors are set to limited to allow for interaction with tokens
+        if (this.type === "loot") {
+            return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.OBSERVER;
+        }
+        return super.visible;
+    }
+
+    canUserModify(user, action) {
+        console.log(action)
+        if (action === "update" && this.type === "loot") {
+            return this.permission >= CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED;
+        }
+        return super.canUserModify(user, action);
+    }
+
     /**
      * Augment the basic actor data with additional dynamic data.
      * 
@@ -172,7 +188,7 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
     }
     
     /*
-     * Extend preCreate to automatically link PC and Drone tokens, as well as add Unarmed Strikes to PCs automatically.
+     * Extend preCreate to apply certain defaults to newly created actors
      * See the base Actor class for API documentation of this method
      *
      * @param {object} data           The initial data object provided to the document creation request
@@ -184,10 +200,12 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
         const autoLinkedTypes = ['character', 'drone'];
         let updates = {}
         
+        //Enable link actor data on PCs and Drones
         if (autoLinkedTypes.includes(this.type)) {
             updates.prototypeToken = { actorLink:  true };
         };
-        
+
+        //Add unarmed strikes to PCs if the setting is enabled
         if (this.type === "character" && game.settings.get("sfrpg", "autoAddUnarmedStrike")) {
             const ITEM_UUID = "Compendium.sfrpg.equipment.AWo4DU0s18agsFtJ"; // Unarmed strike
             const source = (await fromUuid(ITEM_UUID)).toObject();
@@ -195,6 +213,11 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
             
             updates.items = [source];
         };
+
+        //Set all players' ownership of loot actors to limited.
+        if (this.type === "loot") {
+            updates.ownership = { default: CONST.DOCUMENT_PERMISSION_LEVELS.LIMITED };
+        }
 
         this.updateSource(updates)
         

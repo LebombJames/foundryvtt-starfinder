@@ -71,6 +71,7 @@ export class ActorSheetSFRPG extends ActorSheet {
             isDrone: this.document.type === 'drone',
             isNPC: this.document.type === 'npc' || this.document.type === 'npc2',
             isHazard: this.document.type === 'hazard',
+            isLoot: this.document.type === 'loot',
             config: CONFIG.SFRPG
         };
 
@@ -979,10 +980,10 @@ export class ActorSheetSFRPG extends ActorSheet {
     async processDroppedData(event, parsedDragData) {
         const targetActor = new ActorItemHelper(this.actor.id, this.token?.id, this.token?.parent?.id);
         if (!ActorItemHelper.IsValidHelper(targetActor)) {
-            ui.notifications.warn(game.i18n.format("SFRPG.ActorSheet.Inventory.Interface.DragToExternalTokenError"));
-            return;
+            //ui.notifications.warn(game.i18n.format("SFRPG.ActorSheet.Inventory.Interface.DragToExternalTokenError"));
+            //return;
         }
-
+        console.log(parsedDragData)
 
         let itemData = null;
         if (parsedDragData.type !== 'ItemCollection') {
@@ -1102,7 +1103,7 @@ export class ActorSheetSFRPG extends ActorSheet {
             }
         } else {
             const sidebarItem = itemData;
-
+            console.log(sidebarItem)
             const addedItemResult = await targetActor.createItem(duplicate(sidebarItem));
             if (addedItemResult.length > 0) {
                 const addedItem = targetActor.getItem(addedItemResult[0].id);

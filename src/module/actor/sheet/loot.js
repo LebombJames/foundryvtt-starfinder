@@ -53,6 +53,8 @@ export class ActorSheetSFRPGLoot extends ActorSheetSFRPG {
     activateListeners(html) {
         //super.activateListeners(html);
 
+        html.find('.item .item-name h4').click(event => this._onItemSummary(event));
+
         if (game.user.isGM || this.document.isOwner) {
             html.find('img[data-edit]').click(ev => this._onEditImage(ev));
             html.find('#toggle-locked').click(this._toggleLocked.bind(this));
@@ -310,6 +312,28 @@ export class ActorSheetSFRPGLoot extends ActorSheetSFRPG {
         }).browse(current);
       }
 
+      _onItemSummary(event) {
+        event.preventDefault();
+        let li = $(event.currentTarget).parents('.item');
+        let itemId = li.attr("data-item-id");
+        const item = this.itemCollection.flags.sfrpg.itemCollection.items.find(x => x._id === itemId);
+        let chatData = this.getChatData(item, { secrets: true, rollData: item.system });
+
+        if (li.hasClass('expanded')) {
+            let summary = li.children('.item-summary');
+            summary.slideUp(200, () => summary.remove());
+        } else {
+            let div = $(`<div class="item-summary">${chatData.system.description.value}</div>`);
+            let props = $(`<div class="item-properties"></div>`);
+            chatData.properties.forEach(p => props.append(`<span class="tag" ${ p.tooltip ? ("data-tippy-content='" + p.tooltip + "'") : ""}>${p.name}</span>`));
+
+            div.append(props);
+            li.append(div.hide());
+            div.slideDown(200, function() { /* noop */ });
+        }
+        li.toggleClass('expanded');
+    }
+
     /* -----------------*/
 
     /* -----------------
@@ -415,7 +439,7 @@ export class ActorSheetSFRPGLoot extends ActorSheetSFRPG {
         if (data.type !== "Item") return;
         const item = await Item.fromDropData(data);
 
-        Item.deleteEmbeddedDocuments("Item", [item])
+        Item.deleteEmbeddedDocuments("Item", [item.id])
     /*
         let targetContainer = null;
         if (event) {

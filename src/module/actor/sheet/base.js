@@ -784,7 +784,16 @@ export class ActorSheetSFRPG extends ActorSheet {
             const desiredDescription = TextEditor.enrichHTML(chatData.description.short || chatData.description.value, {async: false});
             let div = $(`<div class="item-summary">${desiredDescription}</div>`);
             let props = $(`<div class="item-properties"></div>`);
-            chatData.properties.forEach(p => props.append(`<span class="tag" ${ p.tooltip ? ("data-tippy-content='" + p.tooltip + "'") : ""}>${p.name}</span>`));
+            chatData.properties.forEach(p => props.append(
+            `<span class="tag" 
+                data-tooltip='
+                    <strong style="text-align: center;">${p.name}</strong>
+                    <br>
+                    <p style="text-align: left; line-height: 1.2rem">
+                        ${p.tooltip}
+                    </p>' 
+                >${p.name}
+            </span>`));
 
             div.append(props);
             li.append(div.hide());

@@ -58,6 +58,7 @@ import RollContext from "./module/rolls/rollcontext.js";
 import RollTree from "./module/rolls/rolltree.js";
 import { SFRPGTokenHUD } from "./module/token/token-hud.js";
 import setupVision from "./module/vision.js";
+import registerCompendiumArt from "./module/utils/compendium-art.js";
 
 let initTime = null;
 
@@ -109,6 +110,7 @@ Hooks.once('init', async function () {
             SFRPGModifierApplication,            
             TraitSelectorSFRPG
         },
+        compendiumArt: { map: new Map(), refresh: registerCompendiumArt },
         config: SFRPG,
         dice: DiceSFRPG,
         documents: { ActorSFRPG, ItemSFRPG, CombatSFRPG },
@@ -209,6 +211,12 @@ Hooks.once('init', async function () {
         r.style.setProperty("--color-shadow-primary", "#00a0ff");
         r.style.setProperty("--color-shadow-highlight", "#00a0ff");
         r.style.setProperty("--sfrpg-theme-blue", "#235683");
+
+        Hooks.on("renderPause", () => {
+            const paused = document.querySelector("figure#pause");
+            const icon = paused.children[0]
+            icon.src = "systems/sfrpg/images/cup/organizations/starfinder_society.webp";
+        })        
     }
 
     console.log("Starfinder | [INIT] Registering sheets");
@@ -311,6 +319,9 @@ Hooks.once("ready", async () => {
 
     console.log("Starfinder | [SETUP] Setting up Vision Modes");
     setupVision();
+
+    console.log("Starfinder | [READY] Applying artwork from modules to compendiums");
+    registerCompendiumArt();
 
     if (game.user.isGM) {
         const currentSchema = game.settings.get('sfrpg', 'worldSchemaVersion') ?? 0;
@@ -668,9 +679,3 @@ Hooks.on("renderSidebarTab", async (app, html) => {
         }
     }
 });
-
-Hooks.on("renderPause", () => {
-    const paused = document.querySelector("figure#pause");
-    const icon = paused.children[0]
-    icon.src = "systems/sfrpg/images/cup/organizations/starfinder_society.webp";
-})

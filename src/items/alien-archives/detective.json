@@ -2241,12 +2241,6 @@
           ""
         ]
       },
-      "technological": [],
-      "upgrade": [],
-      "vehicleAttack": [],
-      "vehicleSystem": [],
-      "weapon": [],
-      "weaponAccessory": [],
       "system": {
         "type": "",
         "ability": "dex",
@@ -2515,7 +2509,13 @@
         },
         "weaponCategory": "cryo",
         "weaponType": "smallA"
-      }
+      },
+      "technological": [],
+      "upgrade": [],
+      "vehicleAttack": [],
+      "vehicleSystem": [],
+      "weapon": [],
+      "weaponAccessory": []
     },
     {
       "_id": "79YdrtSwSsUihpcs",
@@ -2752,32 +2752,31 @@
       }
     }
   ],
-  "token": {
+  "prototypeToken": {
     "name": "Detective",
     "actorLink": false,
     "alpha": 1,
     "bar1": {
-      "attribute": null
+      "attribute": "attributes.hp"
     },
     "bar2": {
       "attribute": "attributes.rp"
     },
-    "brightSight": 0,
-    "dimSight": 0,
-    "displayBars": 40,
-    "displayName": 40,
+    "displayBars": 20,
+    "displayName": 20,
     "disposition": -1,
     "flags": {},
     "height": 1,
-    "img": "icons/svg/mystery-man.svg",
     "light": {
       "alpha": 0.5,
-      "angle": 0,
+      "angle": 360,
       "animation": {
+        "type": null,
         "intensity": 5,
         "reverse": false,
         "speed": 5
       },
+      "attenuation": 0.5,
       "bright": 0,
       "color": null,
       "coloration": 1,
@@ -2787,7 +2786,6 @@
         "min": 0
       },
       "dim": 0,
-      "gradual": true,
       "luminosity": 0.5,
       "saturation": 0,
       "shadows": 0
@@ -2798,8 +2796,25 @@
     "randomImg": false,
     "rotation": 0,
     "scale": 1,
-    "sightAngle": 0,
-    "vision": false,
+    "sight": {
+      "angle": 360,
+      "attenuation": 0.1,
+      "brightness": 1,
+      "color": null,
+      "contrast": 0,
+      "enabled": false,
+      "range": 0,
+      "saturation": 0,
+      "visionMode": "basic"
+    },
+    "texture": {
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": null
+    },
     "width": 1
   },
   "system": {

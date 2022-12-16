@@ -37,12 +37,6 @@
         "subtype": "fusion",
         "weightProperty": "level"
       },
-      "technological": false,
-      "upgrade": false,
-      "vehicleAttack": false,
-      "vehicleSystem": false,
-      "weapon": false,
-      "weaponAccessory": false,
       "system": {
         "type": "",
         "ability": "",
@@ -259,7 +253,13 @@
         },
         "weaponCategory": "uncategorized",
         "weaponType": "basicM"
-      }
+      },
+      "technological": false,
+      "upgrade": false,
+      "vehicleAttack": false,
+      "vehicleSystem": false,
+      "weapon": false,
+      "weaponAccessory": false
     },
     {
       "_id": "iwDi6vSxKplC2uSW",
@@ -292,12 +292,6 @@
         "subtype": "fusion",
         "weightProperty": "level"
       },
-      "technological": false,
-      "upgrade": false,
-      "vehicleAttack": false,
-      "vehicleSystem": false,
-      "weapon": false,
-      "weaponAccessory": false,
       "system": {
         "type": "",
         "ability": "",
@@ -514,7 +508,13 @@
         },
         "weaponCategory": "uncategorized",
         "weaponType": "basicM"
-      }
+      },
+      "technological": false,
+      "upgrade": false,
+      "vehicleAttack": false,
+      "vehicleSystem": false,
+      "weapon": false,
+      "weaponAccessory": false
     },
     {
       "_id": "IrpB1JE3RHBPKV1Z",
@@ -1121,30 +1121,6 @@
           ""
         ]
       },
-      "technological": [
-        false,
-        false
-      ],
-      "upgrade": [
-        false,
-        false
-      ],
-      "vehicleAttack": [
-        false,
-        false
-      ],
-      "vehicleSystem": [
-        false,
-        false
-      ],
-      "weapon": [
-        false,
-        false
-      ],
-      "weaponAccessory": [
-        false,
-        false
-      ],
       "system": {
         "type": "",
         "ability": "",
@@ -1371,7 +1347,31 @@
         },
         "weaponCategory": "projectile",
         "weaponType": "grenade"
-      }
+      },
+      "technological": [
+        false,
+        false
+      ],
+      "upgrade": [
+        false,
+        false
+      ],
+      "vehicleAttack": [
+        false,
+        false
+      ],
+      "vehicleSystem": [
+        false,
+        false
+      ],
+      "weapon": [
+        false,
+        false
+      ],
+      "weaponAccessory": [
+        false,
+        false
+      ]
     },
     {
       "_id": "6hTW1K0hXRaUURgb",
@@ -2463,7 +2463,7 @@
       }
     }
   ],
-  "token": {
+  "prototypeToken": {
     "name": "Ghoul Shock Trooper",
     "actorLink": false,
     "alpha": 1,
@@ -2471,35 +2471,62 @@
       "attribute": "attributes.hp"
     },
     "bar2": {
-      "attribute": "attributes.sp"
+      "attribute": ""
     },
-    "brightLight": 0,
-    "brightSight": 0,
-    "dimLight": 0,
-    "dimSight": 0,
-    "displayBars": 40,
+    "displayBars": 20,
     "displayName": 20,
     "disposition": -1,
     "elevation": null,
     "flags": {},
     "height": 1,
-    "img": "icons/svg/mystery-man.svg",
-    "lightAlpha": 0.25,
-    "lightAngle": 0,
-    "lightAnimation": {
-      "intensity": 5,
-      "speed": 5
+    "light": {
+      "alpha": 0.5,
+      "angle": 360,
+      "animation": {
+        "type": null,
+        "intensity": 5,
+        "reverse": false,
+        "speed": 5
+      },
+      "attenuation": 0.5,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "contrast": 0,
+      "darkness": {
+        "max": 1,
+        "min": 0
+      },
+      "dim": 0,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "shadows": 0
     },
-    "lightColor": null,
     "lockRotation": false,
     "mirrorX": false,
     "mirrorY": false,
     "randomImg": false,
     "rotation": 0,
     "scale": 1,
-    "sightAngle": 0,
-    "tint": null,
-    "vision": false,
+    "sight": {
+      "angle": 360,
+      "attenuation": 0.1,
+      "brightness": 1,
+      "color": null,
+      "contrast": 0,
+      "enabled": false,
+      "range": 0,
+      "saturation": 0,
+      "visionMode": "basic"
+    },
+    "texture": {
+      "offsetX": 0,
+      "offsetY": 0,
+      "rotation": 0,
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": null
+    },
     "width": 1,
     "x": null,
     "y": null

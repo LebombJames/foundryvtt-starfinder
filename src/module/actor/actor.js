@@ -147,9 +147,9 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
         if (newSize && (newSize !== getProperty(this.system, "traits.size"))) {
             let size = CONFIG.SFRPG.tokenSizes[data['system.traits.size']];
             if (this.isToken) this.token.update({ height: size, width: size });
-            else if (!data["token.width"] && !hasProperty(data, "token.width")) {
-                setProperty(data, 'token.height', size);
-                setProperty(data, 'token.width', size);
+            else if (!data["prototypeToken.width"] && !hasProperty(data, "prototypeToken.width")) {
+                setProperty(data, 'prototypeToken.height', size);
+                setProperty(data, 'prototypeToken.width', size);
             }
         }
 

@@ -143,16 +143,6 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
      * @return {Promise}        A Promise which resolves to the updated Entity
      */
     async update(data, options = {}) {
-        const newSize = data['system.traits.size'];
-        if (newSize && (newSize !== getProperty(this.system, "traits.size"))) {
-            let size = CONFIG.SFRPG.tokenSizes[data['system.traits.size']];
-            if (this.isToken) this.token.update({ height: size, width: size });
-            else if (!data["prototypeToken.width"] && !hasProperty(data, "prototypeToken.width")) {
-                setProperty(data, 'prototypeToken.height', size);
-                setProperty(data, 'prototypeToken.width', size);
-            }
-        }
-
         return super.update(data, options);
     }
 
@@ -230,6 +220,7 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
         let changedHP = changed.system?.attributes?.hp?.value;
         let changedSP = changed.system?.attributes?.sp?.value;
         let changedRP = changed.system?.attributes?.rp?.value;
+        let changedSize = changed.system?.traits?.size;
 
         if (changedHP) {
             let clampedHP = Math.clamped(changedHP, 0, this.system.attributes.hp.max);
@@ -246,6 +237,14 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
             changed.system.attributes.rp.value = clampedRP;
         }
 
+        if (changedSize) {
+            let size = CONFIG.SFRPG.tokenSizes[changedSize];
+            changed.prototypeToken = {};
+
+            changed.prototypeToken.height = size;
+            changed.prototypeToken.width = size;
+        }
+
         this.floatingHpOnPreUpdate(this, changed, options, user);
 
         return super._preUpdate(changed, options, user);
@@ -254,8 +253,22 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
 
     /** @inheritdoc */
     _onUpdate(data, options, userId) {
-        super._onUpdate(data, options, userId);
         this.floatingHpOnUpdate(this, data, options, userId);
+
+        let changedSize = data.system?.traits?.size;
+
+        if (changedSize) {
+            let size = CONFIG.SFRPG.tokenSizes[changedSize];
+
+            this.getActiveTokens().forEach(async (i) => {
+                await i.document.update({
+                    height: size,
+                    width: size
+                });
+            });
+        }
+
+        super._onUpdate(data, options, userId);
     }
 
     async useSpell(item, { configureDialog = true } = {}) {
@@ -539,7 +552,7 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
             flavor: null,
             speaker: ChatMessage.getSpeaker({ actor: this }),
             chatMessage: options.chatMessage,
-            onClose: options.onClose,									
+            onClose: options.onClose,
             dialogOptions: {
                 left: options.event ? options.event.clientX - 80 : null,
                 top: options.event ? options.event.clientY - 80 : null
@@ -568,7 +581,7 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
             flavor: null,
             speaker: ChatMessage.getSpeaker({ actor: this }),
             chatMessage: options.chatMessage,
-            onClose: options.onClose,							
+            onClose: options.onClose,
             dialogOptions: {
                 left: options.event ? options.event.clientX - 80 : null,
                 top: options.event ? options.event.clientY - 80 : null
@@ -595,7 +608,7 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
             }),
             speaker: ChatMessage.getSpeaker({ actor: this }),
             chatMessage: options.chatMessage,
-            onClose: options.onClose,									
+            onClose: options.onClose,
             dialogOptions: {
                 left: options.event ? options.event.clientX - 80 : null,
                 top: options.event ? options.event.clientY - 80 : null
@@ -654,7 +667,7 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
             flavor: null,
             speaker: ChatMessage.getSpeaker({ actor: this }),
             chatMessage: options.chatMessage,
-            onClose: options.onClose,									
+            onClose: options.onClose,
             dialogOptions: {
                 left: options.event ? options.event.clientX - 80 : null,
                 top: options.event ? options.event.clientY - 80 : null
@@ -1125,7 +1138,7 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
 
 }
 
-Hooks.on("afterClosureProcessed", async(closureName, fact) => {
+Hooks.on("afterClosureProcessed", async (closureName, fact) => {
     if (closureName === "process-actors") {
         await fact.actor.processItemData();
     }

@@ -42,7 +42,11 @@
     "no-whitespace-before-property": "error",
     "rest-spread-spacing": ["error", "never"],
     "space-before-blocks": ["error", "always"],
-    "space-before-function-paren": ["error", "never"],
+    "space-before-function-paren": ["error", {
+      "asyncArrow": "always",
+      "anonymous": "never",
+      "named": "never"
+    }],
     "operator-assignment": "warn",
     "space-infix-ops": ["error"],
     "operator-linebreak": ["error", "before"],

@@ -95,6 +95,7 @@ import calculateVehicleHangar       from './rules/actions/actor/vehicle/calculat
 import calculateVehiclePassengers   from './rules/actions/actor/vehicle/calculate-vehicle-passengers.js';
 // Item rules
 import calculateSaveDC from './rules/actions/item/calculate-save-dc.js';
+import evaluateEvents from './rules/actions/item/evaluate-events.js';
 
 export default function(engine) {
     console.log("Starfinder | [SETUP] Registering rules");
@@ -180,6 +181,7 @@ export default function(engine) {
     calculateVehiclePassengers(engine);
     // Item actions
     calculateSaveDC(engine);
+    evaluateEvents(engine);
 
     // Conditions
     always(engine);
@@ -356,7 +358,8 @@ export default function(engine) {
         name: "process-items",
         description: "Take all of the item data and process it.",
         rules: [
-            "calculateSaveDC"
+            "calculateSaveDC",
+            "evaluateEvents"
         ]
     });
 

@@ -257,6 +257,33 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
         this.floatingHpOnUpdate(this, data, options, userId);
     }
 
+    /**
+     * Returns an array of all owning players for this actor.
+     * GMs are never included in this array.
+     */
+    getOwningPlayers() {
+        const owningPlayers = [];
+        for (const user of game.users) {
+            if (user.isGM) continue;
+            if (this.testUserPermission(user, "OWNER")) {
+                owningPlayers.push(user);
+            }
+        }
+        return owningPlayers;
+    }
+
+    /**
+     * Returns the assigned player user for this actor.
+     */
+    getAssignedPlayer() {
+        for (const user of game.users) {
+            if (user.character === this) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     async useSpell(item, { configureDialog = true } = {}) {
         if (item.type !== "spell") throw new Error("Wrong item type");
 

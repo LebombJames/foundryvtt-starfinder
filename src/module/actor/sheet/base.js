@@ -1,4 +1,5 @@
 import { TraitSelectorSFRPG } from "../../apps/trait-selector.js";
+import { ItemSelectorSFRPG } from "../../apps/item-selector.js";
 import { ActorSheetFlags } from "../../apps/actor-flags.js";
 import { ActorMovementConfig } from "../../apps/movement-config.js";
 import { getSpellBrowser } from "../../packs/spell-browser.js";
@@ -295,6 +296,60 @@ export class ActorSheetSFRPG extends ActorSheet {
                 maxWidth: 600
             });
         }
+
+        const owningUser = this.actor.getAssignedPlayer();
+        if (owningUser === game.user || (owningUser === null && game.user.isGM)) {
+            for (const item of this.actor.items) {
+                if (item.system.events?.length > 0) {
+                    for (let eventIndex = 0; eventIndex < item.system.events.length; eventIndex++) {
+                        const event = item.system.events[eventIndex];
+                        if (event.state !== 1) {
+                            continue;
+                        }
+
+                        const exitEvaluation = this._performEventAction(event, eventIndex, item);
+                        if (exitEvaluation) {
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    _performEventAction(event, eventIndex, sourceItem) {
+        if (!event.action) {
+            return false;
+        }
+
+        if (event.action.type === "select_items") {
+            if (this.itemSelector) {
+                return false;
+            }
+
+            const items = event.action.arg0;
+            const amountToSelect = event.action.arg1;
+            const grantAll = amountToSelect == 0 || amountToSelect >= items.length;
+
+            const options = {
+                sourceItem: sourceItem,
+                eventIndex: eventIndex,
+                targetActor: this.actor,
+                items: items,
+                amountToSelect: amountToSelect,
+                grantAll: grantAll
+            };
+
+            const parentSheet = this;
+            this.itemSelector = new ItemSelectorSFRPG(this.actor, options);
+            this.itemSelector.render(true);
+            this.itemSelector.onClose = () => {
+                parentSheet.itemSelector = null;
+            };
+            return true;
+        }
+
+        return false;
     }
 
     clearTooltips() {

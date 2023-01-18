@@ -507,11 +507,15 @@
         },
         "ChatCard": {
             "ContextMenu": {
+                "Accept": "Accept",
                 "ApplyDamage": "Apply Damage",
                 "ApplyHealing": "Apply Healing",
                 "DamageAndAHalf": "1.5x Damage",
                 "DoubleDamage": "Double Damage",
                 "HalfDamage": "Half Damage",
+                "ModifyDamage": "Modify Damage",
+                "ModifyDamageText": "Input an number to modify the damage amount by. This is applied after any multiplication.",
+                "NoDamageModifier": "No damage modifier applied.",
                 "NoToken": "Cannot apply: No token selected!"
             },
             "ItemActivation": {
@@ -1911,6 +1915,7 @@
                 "RollModeTooltip": "Roll Mode determines who can see this roll.",
                 "Selector": "Select '{name}'",
                 "SelectorTooltip": "Dynamic actor selection for the '{name}' formula context.",
+                "SimplifiedFormulaTooltip": "<p>The formula displayed on the dialog has been calculated from the following formula:</p><p>{formula}</p>",
                 "SituationalBonus": "Situational bonus",
                 "SituationalBonusTooltip": "Are there any additional bonuses that apply to this roll? (For example, range increments)"
             },

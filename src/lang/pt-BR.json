@@ -507,11 +507,15 @@
         },
         "ChatCard": {
             "ContextMenu": {
+                "Accept": "Accept",
                 "ApplyDamage": "Apply Damage",
                 "ApplyHealing": "Apply Healing",
                 "DamageAndAHalf": "1.5x Damage",
                 "DoubleDamage": "Double Damage",
                 "HalfDamage": "Half Damage",
+                "ModifyDamage": "Modify Damage",
+                "ModifyDamageText": "Input an number to modify the damage amount by. This is applied after any multiplication.",
+                "NoDamageModifier": "No damage modifier applied.",
                 "NoToken": "Cannot apply: No token selected!"
             },
             "ItemActivation": {
@@ -1911,6 +1915,7 @@
                 "RollModeTooltip": "Modo de Rolagem determina quem pode ver essa rolagem.",
                 "Selector": "Selecione '{name}'",
                 "SelectorTooltip": "Seleção dinâmica do ator '{name}' para a fórmula.",
+                "SimplifiedFormulaTooltip": "<p>The formula displayed on the dialog has been calculated from the following formula:</p><p>{formula}</p>",
                 "SituationalBonus": "Bônus Substâncial",
                 "SituationalBonusTooltip": "Existem bônus adicionais que se aplicam a este teste? (Por exemplo, incrementos de distância)"
             },

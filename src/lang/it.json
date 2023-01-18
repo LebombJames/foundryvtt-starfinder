@@ -507,11 +507,15 @@
         },
         "ChatCard": {
             "ContextMenu": {
+                "Accept": "Accept",
                 "ApplyDamage": "Apply Damage",
                 "ApplyHealing": "Apply Healing",
                 "DamageAndAHalf": "1.5x Damage",
                 "DoubleDamage": "Double Damage",
                 "HalfDamage": "Half Damage",
+                "ModifyDamage": "Modify Damage",
+                "ModifyDamageText": "Input an number to modify the damage amount by. This is applied after any multiplication.",
+                "NoDamageModifier": "No damage modifier applied.",
                 "NoToken": "Cannot apply: No token selected!"
             },
             "ItemActivation": {
@@ -1911,6 +1915,7 @@
                 "RollModeTooltip": "La modalità di Tiro determina chi può vedere questo Tiro.",
                 "Selector": "Selezionato '{name}'",
                 "SelectorTooltip": "Selezione dinamica degli attori per il contesto della formula  '{name}'.",
+                "SimplifiedFormulaTooltip": "<p>The formula displayed on the dialog has been calculated from the following formula:</p><p>{formula}</p>",
                 "SituationalBonus": "Bonus di circostanza",
                 "SituationalBonusTooltip": "Ci sono bonus aggiuntivi che si applicano a questo tiro? (Ad esempio, incrementi di Gittata?)"
             },

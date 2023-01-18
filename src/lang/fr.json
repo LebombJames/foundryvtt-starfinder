@@ -507,11 +507,15 @@
         },
         "ChatCard": {
             "ContextMenu": {
+                "Accept": "Accept",
                 "ApplyDamage": "Appliquer les dégâts",
                 "ApplyHealing": "Appliquer les soins",
                 "DamageAndAHalf": "Dégâts x1.5",
                 "DoubleDamage": "Doubler les dégâts",
                 "HalfDamage": "Dégâts réduits de moitié",
+                "ModifyDamage": "Modify Damage",
+                "ModifyDamageText": "Input an number to modify the damage amount by. This is applied after any multiplication.",
+                "NoDamageModifier": "No damage modifier applied.",
                 "NoToken": "Impossible à appliquer: aucun token selectionné !"
             },
             "ItemActivation": {
@@ -1911,6 +1915,7 @@
                 "RollModeTooltip": "Le Mode de Jet détermine qui peut voir ce jet.",
                 "Selector": "Sélectionner '{name}'",
                 "SelectorTooltip": "Sélection dynamique des acteurs pour le contexte de la formule '{name}'.",
+                "SimplifiedFormulaTooltip": "<p>The formula displayed on the dialog has been calculated from the following formula:</p><p>{formula}</p>",
                 "SituationalBonus": "Bonus de situation",
                 "SituationalBonusTooltip": "Y a-t-il des bonus supplémentaires qui s'appliquent à ce jet ? (Par exemple, des incréments de plage)"
             },

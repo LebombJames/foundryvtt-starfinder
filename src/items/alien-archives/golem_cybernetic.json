@@ -1286,11 +1286,6 @@
       "_id": "MhUqdlVDrluGELB2",
       "name": "Magic Immunity (Ex)",
       "type": "feat",
-      "flags": {
-        "core": {
-          "sourceId": "Item.JMatyJtydKIWXAk8"
-        }
-      },
       "img": "icons/svg/item-bag.svg",
       "system": {
         "type": "",

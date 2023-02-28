@@ -1,6 +1,6 @@
 import { SFRPGEffectType, SFRPGModifierType, SFRPGModifierTypes } from "../../../modifiers/types.js";
 
-export default function (engine) {
+export default function(engine) {
     engine.closures.add("calculateBaseAttackBonusModifier", (fact, context) => {
         const data = fact.data;
 
@@ -23,15 +23,15 @@ export default function (engine) {
 
             if (computedBonus !== 0 && localizationKey) {
                 item.tooltip.push(game.i18n.format(localizationKey, {
-                    type: bonus.type.capitalize(),
+                    type: game.i18n.format(`SFRPG.ModifierType${bonus.type.capitalize()}`),
                     mod: computedBonus.signedString(),
                     source: bonus.name
                 }));
             }
-            
+
             return computedBonus;
         };
-        
+
         // Iterate through any modifiers that affect BAB
         let filteredModifiers = fact.modifiers.filter(mod => {
             return (mod.enabled || mod.modifierType === "formula") && mod.effectType == SFRPGEffectType.BASE_ATTACK_BONUS;
@@ -54,7 +54,7 @@ export default function (engine) {
 
         data.attributes.bab = data.attributes.baseAttackBonus.value + bonus;
         data.attributes.baseAttackBonus.value += bonus;
-        
+
         return fact;
     }, { required: ["stackModifiers"], closureParameters: ["stackModifiers"] });
 }

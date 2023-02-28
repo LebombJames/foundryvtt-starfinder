@@ -2,7 +2,8 @@
   "_id": "mE7NHCoz9QFQpNwN",
   "name": "Rail ballista (3d8)",
   "type": "starshipWeapon",
-  "data": {
+  "img": "icons/svg/mystery-man.svg",
+  "system": {
     "type": "",
     "abilityMods": {
       "parts": []
@@ -93,8 +94,5 @@
     },
     "speed": 0,
     "weaponType": "direct"
-  },
-  "effects": [],
-  "flags": {},
-  "img": "icons/svg/mystery-man.svg"
+  }
 }

@@ -1,6 +1,6 @@
 import { SFRPGEffectType, SFRPGModifierType, SFRPGModifierTypes } from "../../../../modifiers/types.js";
 
-export default function (engine) {
+export default function(engine) {
     engine.closures.add("calculateResolve", (fact, context) => {
         const data = fact.data;
 
@@ -23,12 +23,12 @@ export default function (engine) {
 
             if (computedBonus !== 0 && localizationKey) {
                 item.tooltip.push(game.i18n.format(localizationKey, {
-                    type: bonus.type.capitalize(),
+                    type: game.i18n.format(`SFRPG.ModifierType${bonus.type.capitalize()}`),
                     mod: computedBonus.signedString(),
                     source: bonus.name
                 }));
             }
-            
+
             return computedBonus;
         };
 
@@ -57,7 +57,7 @@ export default function (engine) {
             let className = "";
 
             for (const cls of fact.classes) {
-                const classData = cls.data.data;
+                const classData = cls.system;
 
                 if (!classData.kas) continue;
                 let classScore = fact.data.abilities[classData.kas].mod;
@@ -100,7 +100,7 @@ export default function (engine) {
 
             return sum;
         }, 0);
-        
+
         rpMax += bonus;
 
         data.attributes.rp.max = rpMax;

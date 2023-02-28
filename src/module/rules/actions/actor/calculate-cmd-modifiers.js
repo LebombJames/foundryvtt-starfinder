@@ -1,6 +1,6 @@
 import { SFRPGEffectType, SFRPGModifierType, SFRPGModifierTypes } from "../../../modifiers/types.js";
 
-export default function (engine) {
+export default function(engine) {
     engine.closures.add("calculateCMDModifiers", (fact, context) => {
         const cmd = fact.data.attributes.cmd;
         const modifiers = fact.modifiers;
@@ -24,12 +24,12 @@ export default function (engine) {
 
             if (computedBonus !== 0 && localizationKey) {
                 item.tooltip.push(game.i18n.format(localizationKey, {
-                    type: bonus.type.capitalize(),
+                    type: game.i18n.format(`SFRPG.ModifierType${bonus.type.capitalize()}`),
                     mod: computedBonus.signedString(),
                     source: bonus.name
                 }));
             }
-            
+
             return computedBonus;
         };
 
@@ -46,8 +46,7 @@ export default function (engine) {
                 for (const bonus of curr[1]) {
                     prev += addModifier(bonus, fact.data, cmd, "SFRPG.CMDModiferTooltip");
                 }
-            }
-            else {
+            } else {
                 prev += addModifier(curr[1], fact.data, cmd, "SFRPG.CMDModiferTooltip");
             }
 

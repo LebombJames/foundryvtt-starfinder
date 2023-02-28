@@ -2,7 +2,8 @@
   "_id": "1EiLH6uaCDNrFW0I",
   "name": "Breakaway Aegis",
   "type": "technological",
-  "data": {
+  "img": "icons/svg/shield.svg",
+  "system": {
     "type": "",
     "abilityMods": {
       "parts": []
@@ -65,8 +66,5 @@
       "per": "",
       "value": 0
     }
-  },
-  "effects": [],
-  "flags": {},
-  "img": "icons/svg/shield.svg"
+  }
 }

@@ -7,25 +7,22 @@
 @sfrpgGreen: #179c17;
 @sfrpgYellow: #ecde70;
 
-@font-face {
-    font-family: "Nodesto";
-    src: url('fonts/NodestoCapsCondensed.otf');
+:root {
+    --sfrpg-theme-blue: #782e22; //This is overriden to @sfrpgBlue if the custom theme is enabled
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--sfrpg-theme-blue);
 }
 
 @font-face {
     font-family: "Orbitron";
-    src: url('fonts/Orbitron-VariableFont_wght.ttf');
+    src: url('fonts/orbitron-variablefont_wght.woff2') format("woff2");
 }
 
 @font-face {
     font-family: "Exo 2";
-    src: url('fonts/Exo2-VariableFont_wght.ttf');
-}
-
-.nodesto {
-    font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-    font-size: 18px;
-    color: #444;
+    src: url('fonts/exo2-variablefont_wght.woff2') format("woff2");
 }
 
 .orbitron {
@@ -88,4 +85,8 @@
     .flex2 { flex: 2; }
     .flex3 { flex: 3; }
     .flex4 { flex: 4; }
+}
+
+.flexnowrap {
+    flex-wrap: nowrap;
 }

@@ -1,6 +1,6 @@
-import { SFRPGModifierType, SFRPGEffectType, SFRPGModifierTypes } from "../../../modifiers/types.js";
+import { SFRPGEffectType, SFRPGModifierType, SFRPGModifierTypes } from "../../../modifiers/types.js";
 
-export default function (engine) {
+export default function(engine) {
     engine.closures.add("calculateInitiativeModifiers", (fact, context) => {
         const data = fact.data;
         const init = data.attributes.init;
@@ -22,15 +22,15 @@ export default function (engine) {
                 const roll = Roll.create(bonus.modifier.toString(), data).evaluate({maximize: true});
                 computedBonus = roll.total;
             } catch {}
-            
+
             if (computedBonus !== 0 && localizationKey) {
                 item.tooltip.push(game.i18n.format(localizationKey, {
-                    type: bonus.type.capitalize(),
+                    type: game.i18n.format(`SFRPG.ModifierType${bonus.type.capitalize()}`),
                     mod: computedBonus.signedString(),
                     source: bonus.name
                 }));
             }
-            
+
             return computedBonus;
         };
 

@@ -10,6 +10,13 @@ button {
   font-size: 13px;
 }
 
+blockquote.quote {
+    margin: 0.5em 0.5em 0.5em 0px;
+    padding: 0 0 0 0.75em;
+    border-left: 3px solid #235683;
+    font-style: italic;
+}
+
 .window-app {
   .exo2();
 
@@ -32,6 +39,26 @@ button {
 .subtabs > * {
   flex: 1;
 }
+
+a.content-link, a.inline-roll {
+  line-height: 1.6em;
+}
+
+a.enriched-link {
+  background: #DDD;
+  padding: 1px 4px;
+  border: 1px solid var(--color-border-dark-tertiary);
+  border-radius: 2px;
+  white-space: nowrap;
+  word-break: break-all;
+  line-height: 1.6em;
+
+  i {
+    color: var(--color-text-dark-inactive);
+    margin-right: 0.25em;
+  }
+}
+
 
 /* ----------------------------------------- */
 /*  All SFRPG Apps                           */
@@ -83,7 +110,7 @@ button {
   }
 
   // Checkbox Labels
-  label.checkbox {
+  label.checkbox, label.radio {
     flex: auto;
     margin: 0;
     line-height: 20px;
@@ -91,9 +118,15 @@ button {
     text-align: right;
     input[type="checkbox"] {
       height: auto;
-      margin: 0 5px 0;
+      margin: 0 3px;
       position: relative;
       top: 3px;
+    }
+    input[type="radio"] {
+        height: auto;
+        margin: 0 4px;
+        position: relative;
+        top: 3px;
     }
   }
 
@@ -128,18 +161,17 @@ button {
   .form-header {
     margin: 0 0 0.25em 0;
     padding: 0 2px;
-    // .nodesto();
     .exo2();
     font-size: 24px;
     font-weight: normal;
     border-top: @borderGroove;
     border-bottom: @borderGroove;
   }
-  
+
   .form-rest {
     margin-bottom: 7px
   }
-  
+
   .form-repair {
     margin-bottom: 7px
   }
@@ -229,9 +261,9 @@ button {
   }
 
   // Rollable Links
-  .editable .rollable:hover {
+  .editable .inline:hover {
     color: #000;
-    text-shadow: 0 0 10px red;
+    text-shadow: 0 0 10px #00a0ff;
     cursor: pointer;
   }
 
@@ -272,7 +304,7 @@ button {
   /* ----------------------------------------- */
   .sheet-header {
     flex: 0 0 @headerHeight;
-    border-bottom: @borderGroove;
+    border-bottom: 1px groove #eeede0;
     .orbitron();
 
     /* Character Name */
@@ -338,8 +370,7 @@ button {
   .sheet-navigation {
     background: @blueGradientBackground;
     flex: 0 0 @navHeight;
-    margin-bottom: 5px;
-    // .nodesto();
+    margin-bottom: 3px;
     .exo2();
 
     .item {
@@ -359,9 +390,8 @@ button {
 
   .sheet-subnavigation {
     flex: 0 0 @navHeight;
-    margin-bottom: 5px;
     .exo2();
-    
+
     .item {
       height: 30px;
       line-height: 32px;

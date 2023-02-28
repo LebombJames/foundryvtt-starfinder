@@ -143,7 +143,10 @@
                         "age": 0,
                         "height": "",
                         "weight": "",
-                        "otherVisuals": ""
+                        "otherVisuals": "",
+                        "deity": "",
+                        "genderPronouns": "",
+                        "homeWorld": ""
                     }
                 },
                 "skillpoints": {
@@ -375,7 +378,7 @@
                     }
                 },
                 "traits": {
-                    "size": "Medium",
+                    "size": "medium",
                     "senses": "",
                     "languages": {
                         "value": [],
@@ -1234,7 +1237,7 @@
                         "value": null,
                         "max": null
                     }
-                }                
+                }
             }
         },
         "vehicle": {
@@ -1340,6 +1343,7 @@
             "starshipSecuritySystem",
             "starshipSensor",
             "starshipShield",
+            "starshipSpecialAbility",
             "starshipThruster",
             "starshipWeapon",
 
@@ -1476,6 +1480,7 @@
                 },
                 "descriptors": []
             },
+            "descriptors": {},
             "itemUsage": {
                 "ammunitionType": "",
                 "capacity": {
@@ -1647,7 +1652,7 @@
                 "value": 1,
                 "min": 1
             },
-            "kas": "",
+            "kas": "str",
             "csk": {},
             "skillRanks": {
                 "value": 4,
@@ -1662,6 +1667,7 @@
             "ref": "fast",
             "will": "slow",
             "isCaster": false,
+            "slug": "",
             "spellAbility" : "",
             "spellsKnown": {
                 "1":  {"0": 4, "1": 2, "2": null, "3": null, "4": null, "5": null, "6": null},
@@ -1722,7 +1728,7 @@
             }
         },
         "spell": {
-            "templates": ["itemDescription", "activatedEffect", "action", "modifiers"],
+            "templates": ["itemDescription", "activatedEffect", "action", "modifiers", "descriptors"],
             "level": 1,
             "school": "",
             "sr": false,
@@ -1747,7 +1753,7 @@
             "isVariableLevel": false
         },
         "feat": {
-            "templates": ["itemDescription", "activatedEffect", "action", "modifiers"],
+            "templates": ["itemDescription", "activatedEffect", "action", "modifiers", "descriptors"],
             "requirements": "",
             "recharge": {
                 "value": null,
@@ -1814,7 +1820,7 @@
             }
         },
         "augmentation": {
-            "templates": ["itemDescription", "physicalItem", "modifiers", "container"],
+            "templates": ["itemDescription", "physicalItem", "modifiers", "container", "action", "activatedEffect"],
             "system": "",
             "type": "cybernetic"
         },
@@ -1944,6 +1950,9 @@
             "defenseValue": 0,
             "armorBonus": 0,
             "targetLockBonus": 0
+        },
+        "starshipSpecialAbility": {
+          "templates": ["itemDescription"]
         },
         "starshipThruster": {
             "templates": ["starshipComponent", "itemDescription", "modifiers", "specialMaterials"],
@@ -2091,7 +2100,7 @@
         "weaponAccessory": {
             "templates": ["itemDescription", "physicalItem", "itemUsage", "modifiers", "container"],
             "weaponType": "any"
-        }, 
+        },
         "actorResource": {
             "templates": ["itemDescription", "modifiers"],
             "type": null,
@@ -2106,90 +2115,90 @@
                 "showOwnerAndGMOnly": false,
                 "visualization": []
             }
-        },
-        "mechFrame": {
-            "templates": ["itemDescription", "modifiers", "powerPointAbility", "mechPoints", "mechSlots"],
-            "subtypes": {},
-            "size": "huge",
-            "hp": {
-                "base": 0,
-                "advancement": 0
-            },
-            "hardness": 0,
-            "eac": 0,
-            "kac": 0,
-            "saves": {
-                "fort": 0,
-                "reflex": 0
-            },
-            "speed": {},
-            "strength": 0,
-            "operators": {
-                "min": 0,
-                "max": 0
-            }
-        },
-        "mechLimb": {
-            "templates": ["itemDescription", "modifiers", "powerPointAbility", "mechPoints", "mechSlots"],
-            "hp": {
-                "base": 0,
-                "advancement": 0
-            },
-            "eac": 0,
-            "kac": 0,
-            "saves": {
-                "fort": 0,
-                "reflex": 0
-            },
-            "melee": 0,
-            "ranged": 0,
-            "speed": {},
-            "special": ""
-        },
-        "mechPowerCore": {
-            "templates": ["itemDescription", "modifiers", "mechPoints"],
-            "rating": 0,
-            "rate": 0,
-            "initial": 0,
-            "maximum": 0
-        },
-        "mechPowerCoreTemplate": {
-            "templates": ["itemDescription", "modifiers", "mechPoints"],
-            "prerequisite": "",
-            "rate": 0,
-            "initial": 0,
-            "maximum": 0,
-            "special": ""
-        },
-        "mechWeapon": {
-            "templates": ["itemDescription", "modifiers", "powerPointAbility", "mechPoints"],
-            "range": {
-                "value": 0,
-                "uom": "ft"
-            },
-            "special": {},
-            "damage": "low",
-            "damageTypes": {},
-            "critical": "",
-            "slots": {
-                "number": 1,
-                "allowed": {
-                    "frame": false,
-                    "upperLimb": false,
-                    "lowerLimb": false
-                }
-            },
-            "level": 1,
-            "capacity": 0
-        },
-        "mechAuxiliarySystem": {
-            "templates": ["itemDescription", "modifiers", "powerPointAbility", "mechPoints"],
-            "prerequisite": ""
-        },
-        "mechUpgrade": {
-            "templates": ["itemDescription", "modifiers", "powerPointAbility", "mechPoints"],
-            "special": "",
-            "effect": ""
-        }
-    }
+          },
+          "mechFrame": {
+              "templates": ["itemDescription", "modifiers", "powerPointAbility", "mechPoints", "mechSlots"],
+              "subtypes": {},
+              "size": "huge",
+              "hp": {
+                  "base": 0,
+                  "advancement": 0
+              },
+              "hardness": 0,
+              "eac": 0,
+              "kac": 0,
+              "saves": {
+                  "fort": 0,
+                  "reflex": 0
+              },
+              "speed": {},
+              "strength": 0,
+              "operators": {
+                  "min": 0,
+                  "max": 0
+              }
+          },
+          "mechLimb": {
+              "templates": ["itemDescription", "modifiers", "powerPointAbility", "mechPoints", "mechSlots"],
+              "hp": {
+                  "base": 0,
+                  "advancement": 0
+              },
+              "eac": 0,
+              "kac": 0,
+              "saves": {
+                  "fort": 0,
+                  "reflex": 0
+              },
+              "melee": 0,
+              "ranged": 0,
+              "speed": {},
+              "special": ""
+          },
+          "mechPowerCore": {
+              "templates": ["itemDescription", "modifiers", "mechPoints"],
+              "rating": 0,
+              "rate": 0,
+              "initial": 0,
+              "maximum": 0
+          },
+          "mechPowerCoreTemplate": {
+              "templates": ["itemDescription", "modifiers", "mechPoints"],
+              "prerequisite": "",
+              "rate": 0,
+              "initial": 0,
+              "maximum": 0,
+              "special": ""
+          },
+          "mechWeapon": {
+              "templates": ["itemDescription", "modifiers", "powerPointAbility", "mechPoints"],
+              "range": {
+                  "value": 0,
+                  "uom": "ft"
+              },
+              "special": {},
+              "damage": "low",
+              "damageTypes": {},
+              "critical": "",
+              "slots": {
+                  "number": 1,
+                  "allowed": {
+                      "frame": false,
+                      "upperLimb": false,
+                      "lowerLimb": false
+                  }
+              },
+              "level": 1,
+              "capacity": 0
+          },
+          "mechAuxiliarySystem": {
+              "templates": ["itemDescription", "modifiers", "powerPointAbility", "mechPoints"],
+              "prerequisite": ""
+          },
+          "mechUpgrade": {
+              "templates": ["itemDescription", "modifiers", "powerPointAbility", "mechPoints"],
+              "special": "",
+              "effect": ""
+          }
+      }
 }

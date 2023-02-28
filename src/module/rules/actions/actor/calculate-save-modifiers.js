@@ -1,6 +1,6 @@
 import { SFRPGEffectType, SFRPGModifierType, SFRPGModifierTypes } from "../../../modifiers/types.js";
 
-export default function (engine) {
+export default function(engine) {
     engine.closures.add("calculateSaveModifiers", (fact, context) => {
         const data = fact.data;
         const flags = fact.flags;
@@ -8,8 +8,10 @@ export default function (engine) {
         const reflex = data.attributes.reflex;
         const will = data.attributes.will;
         const modifiers = fact.modifiers;
-        const highest = Object.values({fort, reflex, will}).sort((a, b) => b.bonus - a.bonus).shift();
-        const lowest = Object.values({fort, reflex, will}).sort((a, b) => a.bonus - b.bonus).shift();
+        const highest = Object.values({fort, reflex, will}).sort((a, b) => b.bonus - a.bonus)
+            .shift();
+        const lowest = Object.values({fort, reflex, will}).sort((a, b) => a.bonus - b.bonus)
+            .shift();
 
         const addModifier = (bonus, data, item, localizationKey) => {
             if (bonus.modifierType === SFRPGModifierType.FORMULA) {
@@ -30,36 +32,36 @@ export default function (engine) {
 
             let saveMod = 0;
             switch (bonus.valueAffected) {
-                case "highest":
-                    if (item.bonus === highest.bonus) {
-                        saveMod = computedBonus;
-                    }
-                    break;
-                case "lowest":
-                    if (item.bonus === lowest.bonus) {
-                        saveMod = computedBonus;
-                    }
-                    break;
-                default:
+            case "highest":
+                if (item.bonus === highest.bonus) {
                     saveMod = computedBonus;
-                    break;
+                }
+                break;
+            case "lowest":
+                if (item.bonus === lowest.bonus) {
+                    saveMod = computedBonus;
+                }
+                break;
+            default:
+                saveMod = computedBonus;
+                break;
             }
             computedBonus = saveMod;
 
             if (computedBonus !== 0 && localizationKey) {
                 item.tooltip.push(game.i18n.format(localizationKey, {
-                    type: bonus.type.capitalize(),
+                    type: game.i18n.format(`SFRPG.ModifierType${bonus.type.capitalize()}`),
                     mod: computedBonus.signedString(),
                     source: bonus.name
                 }));
             }
-            
+
             return computedBonus;
         };
 
         const filteredMods = modifiers.filter(mod => {
             return (mod.enabled || mod.modifierType === "formula") && [SFRPGEffectType.SAVE, SFRPGEffectType.SAVES].includes(mod.effectType);
-        });        
+        });
 
         const fortMods = context.parameters.stackModifiers.process(filteredMods.filter(mod => [
             "highest",

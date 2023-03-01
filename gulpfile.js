@@ -527,7 +527,7 @@ async function unpack(sourceDatabase, outputDirectory, partOfCook = false) {
         let cleanItem = partOfCook ? item : sanitizeJSON(item);
         let jsonOutput = JSONstringifyOrder(cleanItem, 2, "item");
         let filename = sanitize(item.name);
-        filename = filename.replace(/[\s]/g, "_");
+        filename = filename.replace(/[\s]/g, "-");
         filename = filename.replace(/[,;]/g, "");
         filename = filename.toLowerCase();
 

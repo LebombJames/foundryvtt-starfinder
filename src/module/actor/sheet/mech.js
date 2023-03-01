@@ -1,5 +1,4 @@
-import { SFRPG } from "../../config.js"
-import { ActorSheetSFRPG } from "./base.js"
+import { ActorSheetSFRPG } from "./base.js";
 
 export class ActorSheetSFRPGMech extends ActorSheetSFRPG {
     static get defaultOptions() {
@@ -13,7 +12,7 @@ export class ActorSheetSFRPGMech extends ActorSheetSFRPG {
     }
 
     get template() {
-        return 'systems/sfrpg/templates/actors/mech-sheet-full.html';
+        return 'systems/sfrpg/templates/actors/mech-sheet-full.hbs';
     }
 
     getData() {
@@ -24,7 +23,7 @@ export class ActorSheetSFRPGMech extends ActorSheetSFRPG {
 
     /**
      * Activate event listeners using the prepared sheet HTML
-     * 
+     *
      * @param {JQuery} html The prepared HMTL object ready to be rendered into the DOM
      */
     activateListeners(html) {

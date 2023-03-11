@@ -1,4 +1,3 @@
-import { DiceSFRPG } from "../../../dice.js";
 import RollContext from "../../../rolls/rollcontext.js";
 import RollNode from "../../../rolls/rollnode.js";
 
@@ -33,19 +32,14 @@ export default function(engine) {
 
                 // Conditions will use == instead of === because there's no type guarantee.
                 // This unfortunately means false, 0, and null are all the same. Currently, no reason to see problems here.
-                if (operator === "==") {
-                    return (attributeValue == comparedValue);
-                } else if (operator === "!=") {
-                    return (attributeValue != comparedValue);
-                } else if (operator === ">") {
-                    return (attributeValue > comparedValue);
-                } else if (operator === ">=") {
-                    return (attributeValue != comparedValue);
-                } else if (operator === "<") {
-                    return (attributeValue != comparedValue);
-                } else if (operator === "<=") {
-                    return (attributeValue != comparedValue);
-                }
+                return {
+                    "==": (attributeValue, comparedValue) => attributeValue == comparedValue,
+                    "!=": (attributeValue, comparedValue) => attributeValue != comparedValue,
+                    ">" : (attributeValue, comparedValue) => attributeValue >  comparedValue,
+                    ">=": (attributeValue, comparedValue) => attributeValue >= comparedValue,
+                    "<" : (attributeValue, comparedValue) => attributeValue <  comparedValue,
+                    "<=": (attributeValue, comparedValue) => attributeValue <= comparedValue
+                }[operator](attributeValue, comparedValue);
 
             } else if (trigger.type === "instant_trigger") {
                 return true;

@@ -108,50 +108,7 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
         });
     }
 
-    /** @override */
-    render(force, context = {}) {
-        /** Clear out deleted item sheets. */
-        const keysToDelete = [];
-        for (const [appId, app] of Object.entries(this.apps)) {
-            if (app instanceof ItemSheetSFRPG) {
-                const item = app.object;
-                if (!this.items.find(x => x.id === item.id)) {
-                    keysToDelete.push(appId);
-                }
-            }
-        }
-        if (keysToDelete.length > 0) {
-            for (const key of keysToDelete) {
-                delete this.apps[key];
-            }
-        }
-
-        /** Now render this actor. */
-        return super.render(force, context);
-    }
-
-    /**
-     * Extend the default update method to enhance data before submission.
-     * See the parent Entity.update method for full details.
-     *
-     * @param {Object} data     The data with which to update the Actor
-     * @param {Object} options  Additional options which customize the update workflow
-     * @return {Promise}        A Promise which resolves to the updated Entity
-     */
-    async update(data, options = {}) {
-        const newSize = data['system.traits.size'];
-        if (newSize && (newSize !== getProperty(this.system, "traits.size"))) {
-            let size = CONFIG.SFRPG.tokenSizes[data['system.traits.size']];
-            if (this.isToken) this.token.update({ height: size, width: size });
-            else if (!data["token.width"] && !hasProperty(data, "token.width")) {
-                setProperty(data, 'token.height', size);
-                setProperty(data, 'token.width', size);
-            }
-        }
-
-        return super.update(data, options);
-    }
-
+    prepareDerivedData() {}
     /**
      * Extend OwnedItem creation logic for the SFRPG system to make weapons proficient by default when dropped on a NPC sheet
      * See the base Actor class for API documentation of this method

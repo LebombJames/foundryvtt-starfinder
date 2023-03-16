@@ -72,8 +72,8 @@ export class ItemSFRPG extends Mix(Item).with(ItemActivationMixin, ItemCapacityM
     /**
      * Augment the basic Item data model with additional dynamic data.
      */
-    prepareData() {
-        super.prepareData();
+    prepareBaseData() {
+        super.prepareBaseData();
         const C = CONFIG.SFRPG;
         const labels = {};
         const itemData = this;

@@ -15,7 +15,6 @@ import { ActorResourcesMixin } from "./mixins/actor-resources.js";
 import { ActorRestMixin } from "./mixins/actor-rest.js";
 
 import { ItemSFRPG } from "../item/item.js";
-import { ItemSheetSFRPG } from "../item/sheet.js";
 import { } from "./crew-update.js";
 
 /**
@@ -67,8 +66,8 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
      * @param {Object} actorData The data for the actor
      * @returns {Promise} A promise for the automation process triggered at the end.
      */
-    prepareData() {
-        super.prepareData();
+    prepareBaseData() {
+        super.prepareBaseData();
 
         this._ensureHasModifiers(this.system);
         const modifiers = this.getAllModifiers();
@@ -130,13 +129,6 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
         /** Now render this actor. */
         return super.render(force, context);
     }
-
-    /**
-     * TODO: Use these two methods to properly setup actor data for use
-     * in the new Active Effects API.
-     */
-    prepareBaseData() { super.prepareBaseData(); }
-    prepareDerivedData() { super.prepareDerivedData(); }
 
     /**
      * Extend the default update method to enhance data before submission.

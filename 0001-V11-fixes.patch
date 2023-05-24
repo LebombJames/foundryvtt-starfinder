@@ -1,0 +1,1150 @@
+From b4a24794fbef84721e44480ba284d15a2644c9e6 Mon Sep 17 00:00:00 2001
+From: Sam Marine <sam.marine418@gmail.com>
+Date: Wed, 24 May 2023 00:19:38 +0100
+Subject: [PATCH] V11 fixes
+
+---
+ src/lang/de.json                           | 112 +++++++++++----------
+ src/lang/en.json                           | 112 +++++++++++----------
+ src/lang/fr.json                           | 112 +++++++++++----------
+ src/lang/it.json                           | 112 +++++++++++----------
+ src/lang/ja.json                           | 112 +++++++++++----------
+ src/lang/pt-BR.json                        | 112 +++++++++++----------
+ src/less/document-browser.less             |  11 ++
+ src/module/actor/mixins/actor-modifiers.js |   4 +-
+ src/module/config.js                       |  24 ++---
+ src/module/item/item.js                    |  18 ++--
+ src/module/item/sheet.js                   |   2 +-
+ src/module/packs/browsers.js               |  20 ++--
+ src/module/rolls/roll.js                   |  40 ++++++++
+ src/sfrpg.js                               |  46 ++-------
+ src/system.json                            |   4 +-
+ 15 files changed, 436 insertions(+), 405 deletions(-)
+
+diff --git a/src/lang/de.json b/src/lang/de.json
+index 1d8095a86..c3a4ff42a 100644
+--- a/src/lang/de.json
++++ b/src/lang/de.json
+@@ -1,59 +1,61 @@
+ {
+-    "ACTOR": {
+-        "TypeCharacter": "Spielercharakter",
+-        "TypeDrone": "Drohne",
+-        "TypeHazard": "Hazard",
+-        "TypeNpc": "Old Style Nichtspielercharakter",
+-        "TypeNpc2": "Nichtspielercharakter",
+-        "TypeStarship": "Raumschiff",
+-        "TypeVehicle": "Fahrzeug"
+-    },
+-    "ITEM": {
+-        "TypeActorresource": "Actor Resource",
+-        "TypeAmmunition": "Ammunition",
+-        "TypeArchetypes": "Archetyp",
+-        "TypeAsi": "Attributswertsteigerung",
+-        "TypeAugmentation": "Aufwertung",
+-        "TypeChassis": "Drohnenchassis",
+-        "TypeClass": "Klasse",
+-        "TypeConsumable": "Verbrauchsmaterial",
+-        "TypeContainer": "Behälter",
+-        "TypeEquipment": "Rüstung",
+-        "TypeFeat": "Talent",
+-        "TypeFusion": "Waffenfusion",
+-        "TypeGoods": "Waren",
+-        "TypeHybrid": "Hybrid",
+-        "TypeMagic": "Magic",
+-        "TypeMod": "Drohnenmodifikation",
+-        "TypeRace": "Volk",
+-        "TypeShield": "Schild",
+-        "TypeSpell": "Zauber",
+-        "TypeStarshipablativearmor": "Starship Ablative Armor",
+-        "TypeStarshipaction": "Starship Action",
+-        "TypeStarshiparmor": "Starship Armor",
+-        "TypeStarshipcomputer": "Starship Computer",
+-        "TypeStarshipcrewquarter": "Starship Crew Quarter",
+-        "TypeStarshipdefensivecountermeasure": "Starship Defensive Countermeasure",
+-        "TypeStarshipdriftengine": "Starship Drift Engine",
+-        "TypeStarshipexpansionbay": "Starship Expansion Bay",
+-        "TypeStarshipfortifiedhull": "Starship Fortified Hull",
+-        "TypeStarshipframe": "Raumschiffgrundstruktur",
+-        "TypeStarshipothersystem": "Starship Other System",
+-        "TypeStarshippowercore": "Starship Power Core",
+-        "TypeStarshipreinforcedbulkhead": "Starship Reinforced Bulkhead",
+-        "TypeStarshipsecuritysystem": "Starship Security System",
+-        "TypeStarshipsensor": "Starship Sensor",
+-        "TypeStarshipshield": "Starship Shield",
+-        "TypeStarshipspecialability": "Starship Special Ability",
+-        "TypeStarshipthruster": "Starship Thruster",
+-        "TypeStarshipweapon": "Raumschiffwaffe",
+-        "TypeTechnological": "Technologisch",
+-        "TypeTheme": "Charaktermotiv",
+-        "TypeUpgrade": "Rüstungsverbesserung",
+-        "TypeVehicleattack": "Vehicle Attack",
+-        "TypeVehiclesystem": "Vehicle System",
+-        "TypeWeapon": "Waffe",
+-        "TypeWeaponaccessory": "Weapon Accessory"
++    "TYPES": {
++        "Actor": {
++            "TypeCharacter": "Spielercharakter",
++            "TypeDrone": "Drohne",
++            "TypeHazard": "Hazard",
++            "TypeNpc": "Old Style Nichtspielercharakter",
++            "TypeNpc2": "Nichtspielercharakter",
++            "TypeStarship": "Raumschiff",
++            "TypeVehicle": "Fahrzeug"
++        },
++        "Item": {
++            "TypeActorresource": "Actor Resource",
++            "TypeAmmunition": "Ammunition",
++            "TypeArchetypes": "Archetyp",
++            "TypeAsi": "Attributswertsteigerung",
++            "TypeAugmentation": "Aufwertung",
++            "TypeChassis": "Drohnenchassis",
++            "TypeClass": "Klasse",
++            "TypeConsumable": "Verbrauchsmaterial",
++            "TypeContainer": "Behälter",
++            "TypeEquipment": "Rüstung",
++            "TypeFeat": "Talent",
++            "TypeFusion": "Waffenfusion",
++            "TypeGoods": "Waren",
++            "TypeHybrid": "Hybrid",
++            "TypeMagic": "Magic",
++            "TypeMod": "Drohnenmodifikation",
++            "TypeRace": "Volk",
++            "TypeShield": "Schild",
++            "TypeSpell": "Zauber",
++            "TypeStarshipablativearmor": "Starship Ablative Armor",
++            "TypeStarshipaction": "Starship Action",
++            "TypeStarshiparmor": "Starship Armor",
++            "TypeStarshipcomputer": "Starship Computer",
++            "TypeStarshipcrewquarter": "Starship Crew Quarter",
++            "TypeStarshipdefensivecountermeasure": "Starship Defensive Countermeasure",
++            "TypeStarshipdriftengine": "Starship Drift Engine",
++            "TypeStarshipexpansionbay": "Starship Expansion Bay",
++            "TypeStarshipfortifiedhull": "Starship Fortified Hull",
++            "TypeStarshipframe": "Raumschiffgrundstruktur",
++            "TypeStarshipothersystem": "Starship Other System",
++            "TypeStarshippowercore": "Starship Power Core",
++            "TypeStarshipreinforcedbulkhead": "Starship Reinforced Bulkhead",
++            "TypeStarshipsecuritysystem": "Starship Security System",
++            "TypeStarshipsensor": "Starship Sensor",
++            "TypeStarshipshield": "Starship Shield",
++            "TypeStarshipspecialability": "Starship Special Ability",
++            "TypeStarshipthruster": "Starship Thruster",
++            "TypeStarshipweapon": "Raumschiffwaffe",
++            "TypeTechnological": "Technologisch",
++            "TypeTheme": "Charaktermotiv",
++            "TypeUpgrade": "Rüstungsverbesserung",
++            "TypeVehicleattack": "Vehicle Attack",
++            "TypeVehiclesystem": "Vehicle System",
++            "TypeWeapon": "Waffe",
++            "TypeWeaponaccessory": "Weapon Accessory"
++        }
+     },
+     "SFRPG": {
+         "ACPTooltip": "Rüstungsmalus: {mod} ({source})",
+diff --git a/src/lang/en.json b/src/lang/en.json
+index 50b5a5a67..84bc7dd22 100644
+--- a/src/lang/en.json
++++ b/src/lang/en.json
+@@ -1,59 +1,61 @@
+ {
+-    "ACTOR": {
+-        "TypeCharacter": "Player Character",
+-        "TypeDrone": "Drone",
+-        "TypeHazard": "Hazard",
+-        "TypeNpc": "Old Style NPC",
+-        "TypeNpc2": "Non-player Character",
+-        "TypeStarship": "Starship",
+-        "TypeVehicle": "Vehicle"
+-    },
+-    "ITEM": {
+-        "TypeActorresource": "Actor Resource",
+-        "TypeAmmunition": "Ammunition",
+-        "TypeArchetypes": "Archetype",
+-        "TypeAsi": "Ability Score Increase",
+-        "TypeAugmentation": "Augmentation",
+-        "TypeChassis": "Drone Chassis",
+-        "TypeClass": "Class",
+-        "TypeConsumable": "Consumable",
+-        "TypeContainer": "Container",
+-        "TypeEquipment": "Armor",
+-        "TypeFeat": "Feature",
+-        "TypeFusion": "Weapon Fusion",
+-        "TypeGoods": "Goods",
+-        "TypeHybrid": "Hybrid",
+-        "TypeMagic": "Magic",
+-        "TypeMod": "Drone Mod",
+-        "TypeRace": "Species",
+-        "TypeShield": "Shield",
+-        "TypeSpell": "Spell",
+-        "TypeStarshipablativearmor": "Starship Ablative Armor",
+-        "TypeStarshipaction": "Starship Action",
+-        "TypeStarshiparmor": "Starship Armor",
+-        "TypeStarshipcomputer": "Starship Computer",
+-        "TypeStarshipcrewquarter": "Starship Crew Quarter",
+-        "TypeStarshipdefensivecountermeasure": "Starship Defensive Countermeasure",
+-        "TypeStarshipdriftengine": "Starship Drift Engine",
+-        "TypeStarshipexpansionbay": "Starship Expansion Bay",
+-        "TypeStarshipfortifiedhull": "Starship Fortified Hull",
+-        "TypeStarshipframe": "Starship Frame",
+-        "TypeStarshipothersystem": "Starship Other System",
+-        "TypeStarshippowercore": "Starship Power Core",
+-        "TypeStarshipreinforcedbulkhead": "Starship Reinforced Bulkhead",
+-        "TypeStarshipsecuritysystem": "Starship Security System",
+-        "TypeStarshipsensor": "Starship Sensor",
+-        "TypeStarshipshield": "Starship Shield",
+-        "TypeStarshipspecialability": "Starship Special Ability",
+-        "TypeStarshipthruster": "Starship Thruster",
+-        "TypeStarshipweapon": "Starship Weapon",
+-        "TypeTechnological": "Technological",
+-        "TypeTheme": "Theme",
+-        "TypeUpgrade": "Armor Upgrade",
+-        "TypeVehicleattack": "Vehicle Attack",
+-        "TypeVehiclesystem": "Vehicle System",
+-        "TypeWeapon": "Weapon",
+-        "TypeWeaponaccessory": "Weapon Accessory"
++    "TYPES": {
++        "Actor": {
++            "TypeCharacter": "Player Character",
++            "TypeDrone": "Drone",
++            "TypeHazard": "Hazard",
++            "TypeNpc": "Old Style NPC",
++            "TypeNpc2": "Non-player Character",
++            "TypeStarship": "Starship",
++            "TypeVehicle": "Vehicle"
++        },
++        "Item": {
++            "TypeActorresource": "Actor Resource",
++            "TypeAmmunition": "Ammunition",
++            "TypeArchetypes": "Archetype",
++            "TypeAsi": "Ability Score Increase",
++            "TypeAugmentation": "Augmentation",
++            "TypeChassis": "Drone Chassis",
++            "TypeClass": "Class",
++            "TypeConsumable": "Consumable",
++            "TypeContainer": "Container",
++            "TypeEquipment": "Armor",
++            "TypeFeat": "Feature",
++            "TypeFusion": "Weapon Fusion",
++            "TypeGoods": "Goods",
++            "TypeHybrid": "Hybrid",
++            "TypeMagic": "Magic",
++            "TypeMod": "Drone Mod",
++            "TypeRace": "Species",
++            "TypeShield": "Shield",
++            "TypeSpell": "Spell",
++            "TypeStarshipablativearmor": "Starship Ablative Armor",
++            "TypeStarshipaction": "Starship Action",
++            "TypeStarshiparmor": "Starship Armor",
++            "TypeStarshipcomputer": "Starship Computer",
++            "TypeStarshipcrewquarter": "Starship Crew Quarter",
++            "TypeStarshipdefensivecountermeasure": "Starship Defensive Countermeasure",
++            "TypeStarshipdriftengine": "Starship Drift Engine",
++            "TypeStarshipexpansionbay": "Starship Expansion Bay",
++            "TypeStarshipfortifiedhull": "Starship Fortified Hull",
++            "TypeStarshipframe": "Starship Frame",
++            "TypeStarshipothersystem": "Starship Other System",
++            "TypeStarshippowercore": "Starship Power Core",
++            "TypeStarshipreinforcedbulkhead": "Starship Reinforced Bulkhead",
++            "TypeStarshipsecuritysystem": "Starship Security System",
++            "TypeStarshipsensor": "Starship Sensor",
++            "TypeStarshipshield": "Starship Shield",
++            "TypeStarshipspecialability": "Starship Special Ability",
++            "TypeStarshipthruster": "Starship Thruster",
++            "TypeStarshipweapon": "Starship Weapon",
++            "TypeTechnological": "Technological",
++            "TypeTheme": "Theme",
++            "TypeUpgrade": "Armor Upgrade",
++            "TypeVehicleattack": "Vehicle Attack",
++            "TypeVehiclesystem": "Vehicle System",
++            "TypeWeapon": "Weapon",
++            "TypeWeaponaccessory": "Weapon Accessory"
++        }
+     },
+     "SFRPG": {
+         "ACPTooltip": "Armor Check Penalty: {mod} ({source})",
+diff --git a/src/lang/fr.json b/src/lang/fr.json
+index c932584f0..493b14ba7 100644
+--- a/src/lang/fr.json
++++ b/src/lang/fr.json
+@@ -1,59 +1,61 @@
+ {
+-    "ACTOR": {
+-        "TypeCharacter": "Personnage Joueur",
+-        "TypeDrone": "Drone",
+-        "TypeHazard": "Piège",
+-        "TypeNpc": "Old Style Personnage Non-Joueur",
+-        "TypeNpc2": "Personnage Non-Joueur",
+-        "TypeStarship": "Vaisseau",
+-        "TypeVehicle": "Véhicule"
+-    },
+-    "ITEM": {
+-        "TypeActorresource": "Ressources de l'acteur",
+-        "TypeAmmunition": "Munitions",
+-        "TypeArchetypes": "Archétype",
+-        "TypeAsi": "Augmentation de valeur de Caractéristique",
+-        "TypeAugmentation": "Augmentation",
+-        "TypeChassis": "Châssis de drone",
+-        "TypeClass": "Classe",
+-        "TypeConsumable": "Consommable",
+-        "TypeContainer": "Conteneur",
+-        "TypeEquipment": "Armure",
+-        "TypeFeat": "Trait",
+-        "TypeFusion": "Fusion d'arme",
+-        "TypeGoods": "Marchandises",
+-        "TypeHybrid": "Hybride",
+-        "TypeMagic": "Magique",
+-        "TypeMod": "Module de drone",
+-        "TypeRace": "Race",
+-        "TypeShield": "Bouclier",
+-        "TypeSpell": "Sort",
+-        "TypeStarshipablativearmor": "Armure ablative de vaisseau spatial",
+-        "TypeStarshipaction": "Action de vaisseau spatial",
+-        "TypeStarshiparmor": "Armure de vaisseau spatial",
+-        "TypeStarshipcomputer": "Ordinateur de vaisseau spatial",
+-        "TypeStarshipcrewquarter": "Quartier d'équipage de vaisseau spatial",
+-        "TypeStarshipdefensivecountermeasure": "Contre-mesure défensive de vaisseau spatial",
+-        "TypeStarshipdriftengine": "Propulseur Drift de vaisseau spatial",
+-        "TypeStarshipexpansionbay": "Compartiment annexe de vaisseau spatial",
+-        "TypeStarshipfortifiedhull": "Coque renforcée de vaisseau spatial",
+-        "TypeStarshipframe": "Armature de vaisseau spatial",
+-        "TypeStarshipothersystem": "Autre système de vaisseau spatial",
+-        "TypeStarshippowercore": "Réacteur de vaisseau spatial",
+-        "TypeStarshipreinforcedbulkhead": "Cloison renforcée de vaisseau spatial",
+-        "TypeStarshipsecuritysystem": "Système de sécurité de vaisseau spatial",
+-        "TypeStarshipsensor": "Détecteur de vaisseau spatial",
+-        "TypeStarshipshield": "Bouclier de vaisseau spatial",
+-        "TypeStarshipspecialability": "Starship Special Ability",
+-        "TypeStarshipthruster": "Propulseur de vaisseau spatial",
+-        "TypeStarshipweapon": "Arme de vaisseau spatial",
+-        "TypeTechnological": "Technologique",
+-        "TypeTheme": "Thème",
+-        "TypeUpgrade": "Amélioration d'armure",
+-        "TypeVehicleattack": "Valeur d'attaque du véhicule",
+-        "TypeVehiclesystem": "Système du véhicule",
+-        "TypeWeapon": "Arme",
+-        "TypeWeaponaccessory": "Accessoire d'arme"
++    "TYPES": {
++        "Actor": {
++            "TypeCharacter": "Personnage Joueur",
++            "TypeDrone": "Drone",
++            "TypeHazard": "Piège",
++            "TypeNpc": "Old Style Personnage Non-Joueur",
++            "TypeNpc2": "Personnage Non-Joueur",
++            "TypeStarship": "Vaisseau",
++            "TypeVehicle": "Véhicule"
++        },
++        "Item": {
++            "TypeActorresource": "Ressources de l'acteur",
++            "TypeAmmunition": "Munitions",
++            "TypeArchetypes": "Archétype",
++            "TypeAsi": "Augmentation de valeur de Caractéristique",
++            "TypeAugmentation": "Augmentation",
++            "TypeChassis": "Châssis de drone",
++            "TypeClass": "Classe",
++            "TypeConsumable": "Consommable",
++            "TypeContainer": "Conteneur",
++            "TypeEquipment": "Armure",
++            "TypeFeat": "Trait",
++            "TypeFusion": "Fusion d'arme",
++            "TypeGoods": "Marchandises",
++            "TypeHybrid": "Hybride",
++            "TypeMagic": "Magique",
++            "TypeMod": "Module de drone",
++            "TypeRace": "Race",
++            "TypeShield": "Bouclier",
++            "TypeSpell": "Sort",
++            "TypeStarshipablativearmor": "Armure ablative de vaisseau spatial",
++            "TypeStarshipaction": "Action de vaisseau spatial",
++            "TypeStarshiparmor": "Armure de vaisseau spatial",
++            "TypeStarshipcomputer": "Ordinateur de vaisseau spatial",
++            "TypeStarshipcrewquarter": "Quartier d'équipage de vaisseau spatial",
++            "TypeStarshipdefensivecountermeasure": "Contre-mesure défensive de vaisseau spatial",
++            "TypeStarshipdriftengine": "Propulseur Drift de vaisseau spatial",
++            "TypeStarshipexpansionbay": "Compartiment annexe de vaisseau spatial",
++            "TypeStarshipfortifiedhull": "Coque renforcée de vaisseau spatial",
++            "TypeStarshipframe": "Armature de vaisseau spatial",
++            "TypeStarshipothersystem": "Autre système de vaisseau spatial",
++            "TypeStarshippowercore": "Réacteur de vaisseau spatial",
++            "TypeStarshipreinforcedbulkhead": "Cloison renforcée de vaisseau spatial",
++            "TypeStarshipsecuritysystem": "Système de sécurité de vaisseau spatial",
++            "TypeStarshipsensor": "Détecteur de vaisseau spatial",
++            "TypeStarshipshield": "Bouclier de vaisseau spatial",
++            "TypeStarshipspecialability": "Starship Special Ability",
++            "TypeStarshipthruster": "Propulseur de vaisseau spatial",
++            "TypeStarshipweapon": "Arme de vaisseau spatial",
++            "TypeTechnological": "Technologique",
++            "TypeTheme": "Thème",
++            "TypeUpgrade": "Amélioration d'armure",
++            "TypeVehicleattack": "Valeur d'attaque du véhicule",
++            "TypeVehiclesystem": "Système du véhicule",
++            "TypeWeapon": "Arme",
++            "TypeWeaponaccessory": "Accessoire d'arme"
++        }
+     },
+     "SFRPG": {
+         "ACPTooltip": "Pénalité d'armure: {mod} ({source})",
+diff --git a/src/lang/it.json b/src/lang/it.json
+index 186534ef1..6bc23ec52 100644
+--- a/src/lang/it.json
++++ b/src/lang/it.json
+@@ -1,59 +1,61 @@
+ {
+-    "ACTOR": {
+-        "TypeCharacter": "PG",
+-        "TypeDrone": "Drone",
+-        "TypeHazard": "Trappola",
+-        "TypeNpc": "Old Style PNG",
+-        "TypeNpc2": "PNG",
+-        "TypeStarship": "Astronave",
+-        "TypeVehicle": "Veicolo"
+-    },
+-    "ITEM": {
+-        "TypeActorresource": "Actor Resource",
+-        "TypeAmmunition": "Ammunition",
+-        "TypeArchetypes": "Archetipo",
+-        "TypeAsi": "Aumento dei valori di caratteristica",
+-        "TypeAugmentation": "Impianto",
+-        "TypeChassis": "Telaio del Drone",
+-        "TypeClass": "Classe",
+-        "TypeConsumable": "Consumabile",
+-        "TypeContainer": "Contenitore",
+-        "TypeEquipment": "Armatura",
+-        "TypeFeat": "Capacità",
+-        "TypeFusion": "Fusione d'arma",
+-        "TypeGoods": "Bene Commerciabile",
+-        "TypeHybrid": "Ibrido",
+-        "TypeMagic": "Magico",
+-        "TypeMod": "Modifica del Drone",
+-        "TypeRace": "Razza",
+-        "TypeShield": "Scudo",
+-        "TypeSpell": "Incantesimo",
+-        "TypeStarshipablativearmor": "Armatura Ablativa",
+-        "TypeStarshipaction": "Azione",
+-        "TypeStarshiparmor": "Armatura",
+-        "TypeStarshipcomputer": "Computer",
+-        "TypeStarshipcrewquarter": "Quartiere dell'Equipaggio",
+-        "TypeStarshipdefensivecountermeasure": "Contro-misura Difensiva",
+-        "TypeStarshipdriftengine": "Motore Deriva",
+-        "TypeStarshipexpansionbay": "Compartimento adattabile",
+-        "TypeStarshipfortifiedhull": "Scafo Rinforzato",
+-        "TypeStarshipframe": "Struttura Base",
+-        "TypeStarshipothersystem": "Altro Sistema",
+-        "TypeStarshippowercore": "Nucleo Energetico",
+-        "TypeStarshipreinforcedbulkhead": "Reinforced Bulkhead",
+-        "TypeStarshipsecuritysystem": "Sistema di Sicurezza",
+-        "TypeStarshipsensor": "Sensore",
+-        "TypeStarshipshield": "Scudo",
+-        "TypeStarshipspecialability": "Starship Special Ability",
+-        "TypeStarshipthruster": "Propulsore",
+-        "TypeStarshipweapon": "Arma",
+-        "TypeTechnological": "Tecnologico",
+-        "TypeTheme": "Tema",
+-        "TypeUpgrade": "Miglioramento dell'Armatura",
+-        "TypeVehicleattack": "Attacco di un Veicolo",
+-        "TypeVehiclesystem": "Sistema di un Veicolo",
+-        "TypeWeapon": "Arma",
+-        "TypeWeaponaccessory": "Accessorio d'arma"
++    "TYPES": {
++        "Actor": {
++            "TypeCharacter": "PG",
++            "TypeDrone": "Drone",
++            "TypeHazard": "Trappola",
++            "TypeNpc": "Old Style PNG",
++            "TypeNpc2": "PNG",
++            "TypeStarship": "Astronave",
++            "TypeVehicle": "Veicolo"
++        },
++        "Item": {
++            "TypeActorresource": "Actor Resource",
++            "TypeAmmunition": "Ammunition",
++            "TypeArchetypes": "Archetipo",
++            "TypeAsi": "Aumento dei valori di caratteristica",
++            "TypeAugmentation": "Impianto",
++            "TypeChassis": "Telaio del Drone",
++            "TypeClass": "Classe",
++            "TypeConsumable": "Consumabile",
++            "TypeContainer": "Contenitore",
++            "TypeEquipment": "Armatura",
++            "TypeFeat": "Capacità",
++            "TypeFusion": "Fusione d'arma",
++            "TypeGoods": "Bene Commerciabile",
++            "TypeHybrid": "Ibrido",
++            "TypeMagic": "Magico",
++            "TypeMod": "Modifica del Drone",
++            "TypeRace": "Razza",
++            "TypeShield": "Scudo",
++            "TypeSpell": "Incantesimo",
++            "TypeStarshipablativearmor": "Armatura Ablativa",
++            "TypeStarshipaction": "Azione",
++            "TypeStarshiparmor": "Armatura",
++            "TypeStarshipcomputer": "Computer",
++            "TypeStarshipcrewquarter": "Quartiere dell'Equipaggio",
++            "TypeStarshipdefensivecountermeasure": "Contro-misura Difensiva",
++            "TypeStarshipdriftengine": "Motore Deriva",
++            "TypeStarshipexpansionbay": "Compartimento adattabile",
++            "TypeStarshipfortifiedhull": "Scafo Rinforzato",
++            "TypeStarshipframe": "Struttura Base",
++            "TypeStarshipothersystem": "Altro Sistema",
++            "TypeStarshippowercore": "Nucleo Energetico",
++            "TypeStarshipreinforcedbulkhead": "Reinforced Bulkhead",
++            "TypeStarshipsecuritysystem": "Sistema di Sicurezza",
++            "TypeStarshipsensor": "Sensore",
++            "TypeStarshipshield": "Scudo",
++            "TypeStarshipspecialability": "Starship Special Ability",
++            "TypeStarshipthruster": "Propulsore",
++            "TypeStarshipweapon": "Arma",
++            "TypeTechnological": "Tecnologico",
++            "TypeTheme": "Tema",
++            "TypeUpgrade": "Miglioramento dell'Armatura",
++            "TypeVehicleattack": "Attacco di un Veicolo",
++            "TypeVehiclesystem": "Sistema di un Veicolo",
++            "TypeWeapon": "Arma",
++            "TypeWeaponaccessory": "Accessorio d'arma"
++        }
+     },
+     "SFRPG": {
+         "ACPTooltip": "Penalità dell'Armatura: {mod} ({source})",
+diff --git a/src/lang/ja.json b/src/lang/ja.json
+index 2b2bccea3..73ae3d198 100644
+--- a/src/lang/ja.json
++++ b/src/lang/ja.json
+@@ -1,59 +1,61 @@
+ {
+-    "ACTOR": {
+-        "TypeCharacter": "Player Character",
+-        "TypeDrone": "Drone",
+-        "TypeHazard": "Hazard",
+-        "TypeNpc": "Old Style NPC",
+-        "TypeNpc2": "Non-player Character",
+-        "TypeStarship": "Starship",
+-        "TypeVehicle": "Vehicle"
+-    },
+-    "ITEM": {
+-        "TypeActorresource": "Actor Resource",
+-        "TypeAmmunition": "Ammunition",
+-        "TypeArchetypes": "Archetype",
+-        "TypeAsi": "Ability Score Increase",
+-        "TypeAugmentation": "Augmentation",
+-        "TypeChassis": "Drone Chassis",
+-        "TypeClass": "Class",
+-        "TypeConsumable": "Consumable",
+-        "TypeContainer": "Container",
+-        "TypeEquipment": "Armor",
+-        "TypeFeat": "Feat",
+-        "TypeFusion": "Weapon Fusion",
+-        "TypeGoods": "Goods",
+-        "TypeHybrid": "Hybrid",
+-        "TypeMagic": "Magic",
+-        "TypeMod": "Drone Mod",
+-        "TypeRace": "Race",
+-        "TypeShield": "Shield",
+-        "TypeSpell": "Spell",
+-        "TypeStarshipablativearmor": "Starship Ablative Armor",
+-        "TypeStarshipaction": "Starship Action",
+-        "TypeStarshiparmor": "Starship Armor",
+-        "TypeStarshipcomputer": "Starship Computer",
+-        "TypeStarshipcrewquarter": "Starship Crew Quarter",
+-        "TypeStarshipdefensivecountermeasure": "Starship Defensive Countermeasure",
+-        "TypeStarshipdriftengine": "Starship Drift Engine",
+-        "TypeStarshipexpansionbay": "Starship Expansion Bay",
+-        "TypeStarshipfortifiedhull": "Starship Fortified Hull",
+-        "TypeStarshipframe": "Starship Frame",
+-        "TypeStarshipothersystem": "Starship Other System",
+-        "TypeStarshippowercore": "Starship Power Core",
+-        "TypeStarshipreinforcedbulkhead": "Starship Reinforced Bulkhead",
+-        "TypeStarshipsecuritysystem": "Starship Security System",
+-        "TypeStarshipsensor": "Starship Sensor",
+-        "TypeStarshipshield": "Starship Shield",
+-        "TypeStarshipspecialability": "Starship Special Ability",
+-        "TypeStarshipthruster": "Starship Thruster",
+-        "TypeStarshipweapon": "Starship Weapon",
+-        "TypeTechnological": "Technological",
+-        "TypeTheme": "Theme",
+-        "TypeUpgrade": "Armor Upgrade",
+-        "TypeVehicleattack": "Vehicle Attack",
+-        "TypeVehiclesystem": "Vehicle System",
+-        "TypeWeapon": "Weapon",
+-        "TypeWeaponaccessory": "Weapon Accessory"
++    "TYPES": {
++        "Actor": {
++            "TypeCharacter": "Player Character",
++            "TypeDrone": "Drone",
++            "TypeHazard": "Hazard",
++            "TypeNpc": "Old Style NPC",
++            "TypeNpc2": "Non-player Character",
++            "TypeStarship": "Starship",
++            "TypeVehicle": "Vehicle"
++        },
++        "Item": {
++            "TypeActorresource": "Actor Resource",
++            "TypeAmmunition": "Ammunition",
++            "TypeArchetypes": "Archetype",
++            "TypeAsi": "Ability Score Increase",
++            "TypeAugmentation": "Augmentation",
++            "TypeChassis": "Drone Chassis",
++            "TypeClass": "Class",
++            "TypeConsumable": "Consumable",
++            "TypeContainer": "Container",
++            "TypeEquipment": "Armor",
++            "TypeFeat": "Feat",
++            "TypeFusion": "Weapon Fusion",
++            "TypeGoods": "Goods",
++            "TypeHybrid": "Hybrid",
++            "TypeMagic": "Magic",
++            "TypeMod": "Drone Mod",
++            "TypeRace": "Race",
++            "TypeShield": "Shield",
++            "TypeSpell": "Spell",
++            "TypeStarshipablativearmor": "Starship Ablative Armor",
++            "TypeStarshipaction": "Starship Action",
++            "TypeStarshiparmor": "Starship Armor",
++            "TypeStarshipcomputer": "Starship Computer",
++            "TypeStarshipcrewquarter": "Starship Crew Quarter",
++            "TypeStarshipdefensivecountermeasure": "Starship Defensive Countermeasure",
++            "TypeStarshipdriftengine": "Starship Drift Engine",
++            "TypeStarshipexpansionbay": "Starship Expansion Bay",
++            "TypeStarshipfortifiedhull": "Starship Fortified Hull",
++            "TypeStarshipframe": "Starship Frame",
++            "TypeStarshipothersystem": "Starship Other System",
++            "TypeStarshippowercore": "Starship Power Core",
++            "TypeStarshipreinforcedbulkhead": "Starship Reinforced Bulkhead",
++            "TypeStarshipsecuritysystem": "Starship Security System",
++            "TypeStarshipsensor": "Starship Sensor",
++            "TypeStarshipshield": "Starship Shield",
++            "TypeStarshipspecialability": "Starship Special Ability",
++            "TypeStarshipthruster": "Starship Thruster",
++            "TypeStarshipweapon": "Starship Weapon",
++            "TypeTechnological": "Technological",
++            "TypeTheme": "Theme",
++            "TypeUpgrade": "Armor Upgrade",
++            "TypeVehicleattack": "Vehicle Attack",
++            "TypeVehiclesystem": "Vehicle System",
++            "TypeWeapon": "Weapon",
++            "TypeWeaponaccessory": "Weapon Accessory"
++        }
+     },
+     "SFRPG": {
+         "ACPTooltip": "ＡＣペナルティ: {mod} ({source})",
+diff --git a/src/lang/pt-BR.json b/src/lang/pt-BR.json
+index 9fd659415..a374d6d81 100644
+--- a/src/lang/pt-BR.json
++++ b/src/lang/pt-BR.json
+@@ -1,59 +1,61 @@
+ {
+-    "ACTOR": {
+-        "TypeCharacter": "Personagem Jogador",
+-        "TypeDrone": "Drone",
+-        "TypeHazard": "Perigo",
+-        "TypeNpc": "Old Style NPC",
+-        "TypeNpc2": "NPC",
+-        "TypeStarship": "Espaçonave",
+-        "TypeVehicle": "Veículo"
+-    },
+-    "ITEM": {
+-        "TypeActorresource": "Actor Resource",
+-        "TypeAmmunition": "Ammunition",
+-        "TypeArchetypes": "Arquetipo",
+-        "TypeAsi": "Incremento Valor Habilidade",
+-        "TypeAugmentation": "Acréscimo",
+-        "TypeChassis": "Drone Chassis",
+-        "TypeClass": "Classe",
+-        "TypeConsumable": "Consumível",
+-        "TypeContainer": "Container",
+-        "TypeEquipment": "Armadura",
+-        "TypeFeat": "Talento",
+-        "TypeFusion": "Fusão de Arma",
+-        "TypeGoods": "Bons",
+-        "TypeHybrid": "Hibrido",
+-        "TypeMagic": "Magico",
+-        "TypeMod": "Drone Mod",
+-        "TypeRace": "Raça",
+-        "TypeShield": "Escudo",
+-        "TypeSpell": "Magia",
+-        "TypeStarshipablativearmor": "Espaçonave Placas Ablativas",
+-        "TypeStarshipaction": "Espaçonave Ação",
+-        "TypeStarshiparmor": "Espaçonave Armadura",
+-        "TypeStarshipcomputer": "Espaçonave Computador",
+-        "TypeStarshipcrewquarter": "Espaçonave Alojamentos da Tripulação",
+-        "TypeStarshipdefensivecountermeasure": "Espaçonave Contramedida Defensiva",
+-        "TypeStarshipdriftengine": "Espaçonave Motor de Deriva",
+-        "TypeStarshipexpansionbay": "Espaçonave Compartimentos de Expansão",
+-        "TypeStarshipfortifiedhull": "Espaçonave Casco Foritficado",
+-        "TypeStarshipframe": "Espaçonave Plataforma",
+-        "TypeStarshipothersystem": "Espaçonave Outros Sistemas",
+-        "TypeStarshippowercore": "Espaçonave Núcleo de Energia",
+-        "TypeStarshipreinforcedbulkhead": "Espaçonave Anteparas Reforçadas",
+-        "TypeStarshipsecuritysystem": "Espaçonave Sistemas de Segurança",
+-        "TypeStarshipsensor": "Espaçonave Sensor",
+-        "TypeStarshipshield": "Espaçonave Escudos",
+-        "TypeStarshipspecialability": "Starship Special Ability",
+-        "TypeStarshipthruster": "Espaçonave Propulsor",
+-        "TypeStarshipweapon": "Espaçonave Armas",
+-        "TypeTechnological": "Tecnologica",
+-        "TypeTheme": "Tema",
+-        "TypeUpgrade": "Atualização Armadura",
+-        "TypeVehicleattack": "Veículo Ataque",
+-        "TypeVehiclesystem": "Veículo Sistema",
+-        "TypeWeapon": "Armas",
+-        "TypeWeaponaccessory": "Acessório de Armas"
++    "TYPES": {
++        "Actor": {
++            "TypeCharacter": "Personagem Jogador",
++            "TypeDrone": "Drone",
++            "TypeHazard": "Perigo",
++            "TypeNpc": "Old Style NPC",
++            "TypeNpc2": "NPC",
++            "TypeStarship": "Espaçonave",
++            "TypeVehicle": "Veículo"
++        },
++        "Item": {
++            "TypeActorresource": "Actor Resource",
++            "TypeAmmunition": "Ammunition",
++            "TypeArchetypes": "Arquetipo",
++            "TypeAsi": "Incremento Valor Habilidade",
++            "TypeAugmentation": "Acréscimo",
++            "TypeChassis": "Drone Chassis",
++            "TypeClass": "Classe",
++            "TypeConsumable": "Consumível",
++            "TypeContainer": "Container",
++            "TypeEquipment": "Armadura",
++            "TypeFeat": "Talento",
++            "TypeFusion": "Fusão de Arma",
++            "TypeGoods": "Bons",
++            "TypeHybrid": "Hibrido",
++            "TypeMagic": "Magico",
++            "TypeMod": "Drone Mod",
++            "TypeRace": "Raça",
++            "TypeShield": "Escudo",
++            "TypeSpell": "Magia",
++            "TypeStarshipablativearmor": "Espaçonave Placas Ablativas",
++            "TypeStarshipaction": "Espaçonave Ação",
++            "TypeStarshiparmor": "Espaçonave Armadura",
++            "TypeStarshipcomputer": "Espaçonave Computador",
++            "TypeStarshipcrewquarter": "Espaçonave Alojamentos da Tripulação",
++            "TypeStarshipdefensivecountermeasure": "Espaçonave Contramedida Defensiva",
++            "TypeStarshipdriftengine": "Espaçonave Motor de Deriva",
++            "TypeStarshipexpansionbay": "Espaçonave Compartimentos de Expansão",
++            "TypeStarshipfortifiedhull": "Espaçonave Casco Foritficado",
++            "TypeStarshipframe": "Espaçonave Plataforma",
++            "TypeStarshipothersystem": "Espaçonave Outros Sistemas",
++            "TypeStarshippowercore": "Espaçonave Núcleo de Energia",
++            "TypeStarshipreinforcedbulkhead": "Espaçonave Anteparas Reforçadas",
++            "TypeStarshipsecuritysystem": "Espaçonave Sistemas de Segurança",
++            "TypeStarshipsensor": "Espaçonave Sensor",
++            "TypeStarshipshield": "Espaçonave Escudos",
++            "TypeStarshipspecialability": "Starship Special Ability",
++            "TypeStarshipthruster": "Espaçonave Propulsor",
++            "TypeStarshipweapon": "Espaçonave Armas",
++            "TypeTechnological": "Tecnologica",
++            "TypeTheme": "Tema",
++            "TypeUpgrade": "Atualização Armadura",
++            "TypeVehicleattack": "Veículo Ataque",
++            "TypeVehiclesystem": "Veículo Sistema",
++            "TypeWeapon": "Armas",
++            "TypeWeaponaccessory": "Acessório de Armas"
++        }
+     },
+     "SFRPG": {
+         "ACPTooltip": "Penalidade Armadura: {mod} ({source})",
+diff --git a/src/less/document-browser.less b/src/less/document-browser.less
+index 68c188df5..2d79a2678 100644
+--- a/src/less/document-browser.less
++++ b/src/less/document-browser.less
+@@ -202,4 +202,15 @@
+     margin-bottom: 1px;
+     padding: 2px;
+     padding-top: 0px;
++
++    button {
++        display: flex;
++        flex-direction: column;
++        height: auto;
++        align-items: center;
++
++        i {
++            padding-top: 5px;
++        }
++    }
+ }
+diff --git a/src/module/actor/mixins/actor-modifiers.js b/src/module/actor/mixins/actor-modifiers.js
+index fbbc523f4..860dab29e 100644
+--- a/src/module/actor/mixins/actor-modifiers.js
++++ b/src/module/actor/mixins/actor-modifiers.js
+@@ -178,8 +178,8 @@ export const ActorModifiersMixin = (superclass) => class extends superclass {
+                 for (const itemModifier of modifiersToConcat) {
+                     itemModifier.container = {actorId: this.id, itemId: item.id};
+                     if (this.token) {
+-                        itemModifier.container.tokenId = this.token.id;
+-                        itemModifier.container.sceneId = this.token.parent.id;
++                        itemModifier.container.tokenId = this.token?.id;
++                        itemModifier.container.sceneId = this.token?.parent?.id;
+                     }
+                 }
+ 
+diff --git a/src/module/config.js b/src/module/config.js
+index 83dd4078c..8699b3c3d 100644
+--- a/src/module/config.js
++++ b/src/module/config.js
+@@ -6,13 +6,13 @@ import IconEnricher from "./system/enrichers/icon.js";
+ export const SFRPG = {};
+ 
+ SFRPG.actorTypes = {
+-    "character": "ACTOR.TypeCharacter",
+-    "drone": "ACTOR.TypeDrone",
+-    "hazard": "ACTOR.TypeHazard",
+-    "npc": "ACTOR.TypeNpc",
+-    "npc2": "ACTOR.TypeNpc2",
+-    "starshop": "ACTOR.TypeStarship",
+-    "vehicle": "ACTOR.TypeVehicle"
++    "character": "TYPES.Actor.TypeCharacter",
++    "drone": "TYPES.Actor.TypeDrone",
++    "hazard": "TYPES.Actor.TypeHazard",
++    "npc": "TYPES.Actor.TypeNpc",
++    "npc2": "TYPES.Actor.TypeNpc2",
++    "starshop": "TYPES.Actor.TypeStarship",
++    "vehicle": "TYPES.Actor.TypeVehicle"
+ };
+ 
+ /**
+@@ -1952,7 +1952,7 @@ SFRPG.itemTypes = {
+     "race": "SFRPG.Items.Categories.Races",
+     "theme": "SFRPG.Items.Categories.Themes",
+ 
+-    "actorResource": "ITEM.TypeActorresource",
++    "actorResource": "TYPES.Item.TypeActorresource",
+     "feat": "SFRPG.Items.Categories.Feats",
+     "spell": "SFRPG.Items.Categories.Spells",
+ 
+@@ -1962,7 +1962,7 @@ SFRPG.itemTypes = {
+     "mod": "SFRPG.Items.Categories.DroneMods",
+ 
+     "starshipAblativeArmor": "SFRPG.Items.Categories.StarshipAblativeArmors",
+-    "starshipAction": "ITEM.TypeStarshipaction",
++    "starshipAction": "TYPES.Item.TypeStarshipaction",
+     "starshipArmor": "SFRPG.Items.Categories.StarshipArmors",
+     "starshipComputer": "SFRPG.Items.Categories.StarshipComputers",
+     "starshipCrewQuarter": "SFRPG.Items.Categories.StarshipCrewQuarters",
+@@ -1988,15 +1988,15 @@ SFRPG.itemTypes = {
+     "consumable": "SFRPG.Items.Categories.Consumables",
+     "container": "SFRPG.Items.Categories.Containers",
+     "equipment": "SFRPG.Items.Categories.Armor",
+-    "fusion": "ITEM.TypeFusion",
++    "fusion": "TYPES.Item.TypeFusion",
+     "goods": "SFRPG.Items.Categories.Goods",
+     "hybrid": "SFRPG.Items.Categories.HybridItems",
+     "magic": "SFRPG.Items.Categories.MagicItems",
+     "shield": "SFRPG.Items.Categories.Shields",
+     "technological": "SFRPG.Items.Categories.TechnologicalItems",
+-    "upgrade": "ITEM.TypeUpgrade",
++    "upgrade": "TYPES.Item.TypeUpgrade",
+     "weapon": "SFRPG.Items.Categories.Weapons",
+-    "weaponAccessory": "ITEM.TypeWeaponaccessory"
++    "weaponAccessory": "TYPES.Item.TypeWeaponaccessory"
+ };
+ 
+ SFRPG.characterDefinitionItemTypes = [
+diff --git a/src/module/item/item.js b/src/module/item/item.js
+index 19d175e30..1585f4449 100644
+--- a/src/module/item/item.js
++++ b/src/module/item/item.js
+@@ -542,7 +542,7 @@ export class ItemSFRPG extends Mix(Item).with(ItemActivationMixin, ItemCapacityM
+      */
+     _technologicalChatData(data, labels, props) {
+         props.push(
+-            {name: game.i18n.localize("ITEM.TypeTechnological"), tooltip: null},
++            {name: game.i18n.localize("TYPES.Item.TypeTechnological"), tooltip: null},
+             data.bulk ? {name: `${game.i18n.localize("SFRPG.InventoryBulk")} ${data.bulk}`, tooltip: null} : null,
+             data.hands ? {name: `${game.i18n.localize("SFRPG.Items.Description.Hands")} ${data.hands}`, tooltip: null} : null
+         );
+@@ -556,7 +556,7 @@ export class ItemSFRPG extends Mix(Item).with(ItemActivationMixin, ItemCapacityM
+      */
+     _hybridChatData(data, labels, props) {
+         props.push(
+-            {name: game.i18n.localize("ITEM.TypeHybrid"), tooltip: null},
++            {name: game.i18n.localize("TYPES.Item.TypeHybrid"), tooltip: null},
+             data.bulk ? {name: `${game.i18n.localize("SFRPG.InventoryBulk")} ${data.bulk}`, tooltip: null} : null,
+             data.hands ? {name: `${game.i18n.localize("SFRPG.Items.Description.Hands")} ${data.hands}`, tooltip: null} : null
+         );
+@@ -570,7 +570,7 @@ export class ItemSFRPG extends Mix(Item).with(ItemActivationMixin, ItemCapacityM
+      */
+     _magicChatData(data, labels, props) {
+         props.push(
+-            {name: game.i18n.localize("ITEM.TypeMagic"), tooltip: null},
++            {name: game.i18n.localize("TYPES.Item.TypeMagic"), tooltip: null},
+             data.bulk ? {name: `${game.i18n.localize("SFRPG.InventoryBulk")} ${data.bulk}`, tooltip: null} : null,
+             data.hands ? {name: `${game.i18n.localize("SFRPG.Items.Description.Hands")} ${data.hands}`, tooltip: null} : null
+         );
+@@ -592,7 +592,7 @@ export class ItemSFRPG extends Mix(Item).with(ItemActivationMixin, ItemCapacityM
+         }
+ 
+         props.push(
+-            {name: game.i18n.localize("ITEM.TypeUpgrade"), tooltip: null},
++            {name: game.i18n.localize("TYPES.Item.TypeUpgrade"), tooltip: null},
+             data.slots ? {name: `${game.i18n.localize("SFRPG.Items.Upgrade.Slots")} ${data.slots}`, tooltip: null} : null,
+             {name: `${game.i18n.localize("SFRPG.Items.Upgrade.AllowedArmorType")}: ${armorType}`, tooltip: null}
+         );
+@@ -600,7 +600,7 @@ export class ItemSFRPG extends Mix(Item).with(ItemActivationMixin, ItemCapacityM
+ 
+     _augmentationChatData(data, labels, props) {
+         props.push(
+-            {name:game.i18n.localize("ITEM.TypeAugmentation"), tooltip: null},
++            {name:game.i18n.localize("TYPES.Item.TypeAugmentation"), tooltip: null},
+             data.type ? {name: CONFIG.SFRPG.augmentationTypes[data.type], tooltip: null} : null,
+             data.system ? {name: CONFIG.SFRPG.augmentationSystems[data.system], tooltip: null} : null
+         );
+@@ -614,14 +614,14 @@ export class ItemSFRPG extends Mix(Item).with(ItemActivationMixin, ItemCapacityM
+      */
+     _fusionChatData(data, labels, props) {
+         props.push(
+-            {name: game.i18n.localize("ITEM.TypeFusion"), tooltip: null},
++            {name: game.i18n.localize("TYPES.Item.TypeFusion"), tooltip: null},
+             data.level ? {name: `${game.i18n.localize("SFRPG.LevelLabelText")} ${data.level}`, tooltip: null} : null
+         );
+     }
+ 
+     _starshipWeaponChatData(data, labels, props) {
+         props.push(
+-            {name: game.i18n.localize("ITEM.TypeStarshipweapon"), tooltip: null},
++            {name: game.i18n.localize("TYPES.Item.TypeStarshipweapon"), tooltip: null},
+             data.weaponType ? {name: CONFIG.SFRPG.starshipWeaponTypes[data.weaponType], tooltip: null} : null,
+             data.class ? {name: CONFIG.SFRPG.starshipWeaponClass[data.class], tooltip: null} : null,
+             data.range ? {name: CONFIG.SFRPG.starshipWeaponRanges[data.range], tooltip: null} : null,
+@@ -695,7 +695,7 @@ export class ItemSFRPG extends Mix(Item).with(ItemActivationMixin, ItemCapacityM
+ 
+     _themeChatData(data, labels, props) {
+         props.push(
+-            {name: game.i18n.localize("ITEM.TypeTheme"), tooltip: null},
++            {name: game.i18n.localize("TYPES.Item.TypeTheme"), tooltip: null},
+             data.abilityMod.ability ? {name: `Ability ${CONFIG.SFRPG.abilities[data.abilityMod.ability]}`, tooltip: null} : null,
+             data.skill ? {name: `Skill ${CONFIG.SFRPG.skills[data.skill]}`, tooltip: null} : null
+         );
+@@ -703,7 +703,7 @@ export class ItemSFRPG extends Mix(Item).with(ItemActivationMixin, ItemCapacityM
+ 
+     _raceChatData(data, labels, props) {
+         props.push(
+-            {name: game.i18n.localize("ITEM.TypeRace"), tooltip: null},
++            {name: game.i18n.localize("TYPES.Item.TypeRace"), tooltip: null},
+             data.type ? {name: data.type, tooltip: null} : null,
+             data.subtype ? {name: data.subtype, tooltip: null} : null
+         );
+diff --git a/src/module/item/sheet.js b/src/module/item/sheet.js
+index ed6fdf11a..8e0b13763 100644
+--- a/src/module/item/sheet.js
++++ b/src/module/item/sheet.js
+@@ -101,7 +101,7 @@ export class ItemSheetSFRPG extends ItemSheet {
+         data.config = CONFIG.SFRPG;
+ 
+         // Item Type, Status, and Details
+-        data.itemType = game.i18n.format(`ITEM.Type${data.item.type.titleCase()}`);
++        data.itemType = game.i18n.format(`TYPES.Item.Type${data.item.type.titleCase()}`);
+         data.itemStatus = this._getItemStatus();
+         data.itemProperties = this._getItemProperties();
+         data.isPhysical = data.itemData.hasOwnProperty("quantity");
+diff --git a/src/module/packs/browsers.js b/src/module/packs/browsers.js
+index dfd623b17..57fb18416 100644
+--- a/src/module/packs/browsers.js
++++ b/src/module/packs/browsers.js
+@@ -7,39 +7,41 @@ Hooks.on('renderCompendiumDirectory', (app, html, data) => {
+     // Browser Buttons
+     const grouping = $('<div class="flexcol browser-group"></div>');
+ 
+-    const alienArchiveBrowserButton = $(`<button class="alien-archive-browser-btn"><i class="fas fa-spaghetti-monster-flying"></i><br> ${game.i18n.format("SFRPG.Browsers.AlienArchiveBrowser.Button")}</button>`);
+-    const spellBrowserButton = $(`<button class="spell-browser-btn"><i class="fas fa-wand-magic-sparkles"></i><br> ${game.i18n.format("SFRPG.Browsers.SpellBrowser.Button")}</button>`);
+-    const equipmentBrowserButton = $(`<button class="spell-browser-btn"><i class="fas fa-gun"></i><br> ${game.i18n.format("SFRPG.Browsers.EquipmentBrowser.Button")}</button>`);
+-    const starshipBrowserButton = $(`<button class="spell-browser-btn"><i class="fas fa-rocket"></i><br> ${game.i18n.format("SFRPG.Browsers.StarshipBrowser.Button")}</button>`);
++    const alienArchiveBrowserButton = $(`<button class="alien-archive-browser-btn"><i class="fas fa-spaghetti-monster-flying"></i>${game.i18n.format("SFRPG.Browsers.AlienArchiveBrowser.Button")}</button>`);
++    const spellBrowserButton = $(`<button class="spell-browser-btn"><i class="fas fa-wand-magic-sparkles"></i>${game.i18n.format("SFRPG.Browsers.SpellBrowser.Button")}</button>`);
++    const equipmentBrowserButton = $(`<button class="equipment-browser-btn"><i class="fas fa-gun"></i>${game.i18n.format("SFRPG.Browsers.EquipmentBrowser.Button")}</button>`);
++    const starshipBrowserButton = $(`<button class="starship-browser-btn"><i class="fas fa-rocket"></i>${game.i18n.format("SFRPG.Browsers.StarshipBrowser.Button")}</button>`);
+ 
+-    html.find('.directory-footer').append(grouping);
++    const footer = html.find('.directory-footer').append(grouping);
+     html.find('.browser-group').append(alienArchiveBrowserButton);
+     html.find('.browser-group').append(spellBrowserButton);
+     html.find('.browser-group').append(equipmentBrowserButton);
+     html.find('.browser-group').append(starshipBrowserButton);
+ 
++    footer.css("padding", "0");
++
+     // Handle button clicks
+     alienArchiveBrowserButton.click(ev => {
+         ev.preventDefault();
+-        let browser = getAlienArchiveBrowser();
++        const browser = getAlienArchiveBrowser();
+         browser.render(true);
+     });
+ 
+     spellBrowserButton.click(ev => {
+         ev.preventDefault();
+-        let browser = getSpellBrowser();
++        const browser = getSpellBrowser();
+         browser.render(true);
+     });
+ 
+     equipmentBrowserButton.click(ev => {
+         ev.preventDefault();
+-        let browser = getEquipmentBrowser();
++        const browser = getEquipmentBrowser();
+         browser.render(true);
+     });
+ 
+     starshipBrowserButton.click(ev => {
+         ev.preventDefault();
+-        let browser = getStarshipBrowser();
++        const browser = getStarshipBrowser();
+         browser.render(true);
+     });
+ });
+diff --git a/src/module/rolls/roll.js b/src/module/rolls/roll.js
+index d8d67e229..38a6d4d9b 100644
+--- a/src/module/rolls/roll.js
++++ b/src/module/rolls/roll.js
+@@ -71,6 +71,46 @@ export default class SFRPGRoll extends Roll {
+     /** @inheritdoc */
+     static TOOLTIP_TEMPLATE = "systems/sfrpg/templates/dice/tooltip.hbs";
+ 
++    static MATH_PROXY = new Proxy(Math, {
++        has: () => true, // Include everything
++        get: (t, k) => k === Symbol.unscopables ? undefined : t[k]
++        // set: () => console.error("You may not set properties of the Roll.MATH_PROXY environment") // No-op
++    });
++
++    static registerMathFunctions() {
++        function lookup(value) {
++            for (let i = 1; i < arguments.length - 1; i += 2) {
++                if (arguments[i] === value) {
++                    return arguments[i + 1];
++                }
++            }
++            return 0;
++        }
++
++        function lookupRange(value, lowestValue) {
++            let baseValue = lowestValue;
++            for (let i = 2; i < arguments.length - 1; i += 2) {
++                if (arguments[i] > value) {
++                    return baseValue;
++                }
++                baseValue = arguments[i + 1];
++            }
++            return baseValue;
++        }
++
++        this.MATH_PROXY = mergeObject(this.MATH_PROXY, {
++            eq: (a, b) => a === b,
++            gt: (a, b) => a > b,
++            gte: (a, b) => a >= b,
++            lt: (a, b) => a < b,
++            lte: (a, b) => a <= b,
++            ne: (a, b) => a !== b,
++            ternary: (condition, ifTrue, ifFalse) => (condition ? ifTrue : ifFalse),
++            lookup,
++            lookupRange
++        });
++    }
++
+     /** @override */
+     async render(chatOptions = {}) {
+         chatOptions = foundry.utils.mergeObject({
+diff --git a/src/sfrpg.js b/src/sfrpg.js
+index d4fbb57f5..a6ece86d7 100644
+--- a/src/sfrpg.js
++++ b/src/sfrpg.js
+@@ -212,8 +212,11 @@ Hooks.once('init', async function() {
+         wordWrap: false
+     });
+ 
++    console.log("Starfinder | [SETUP] Configuring rules engine");
++    registerSystemRules(game.sfrpg.engine);
++
+     console.log("Starfinder | [INIT] Overriding Mathematics");
+-    registerMathFunctions();
++    SFRPGRoll.registerMathFunctions();
+ 
+     console.log("Starfinder | [INIT] Registering system settings");
+     registerSystemSettings();
+@@ -389,9 +392,6 @@ Hooks.once("setup", function() {
+     console.log("Starfinder | [SETUP] Initializing remote inventory system");
+     initializeRemoteInventory();
+ 
+-    console.log("Starfinder | [SETUP] Configuring rules engine");
+-    registerSystemRules(game.sfrpg.engine);
+-
+     console.log("Starfinder | [SETUP] Registering custom handlebars");
+     setupHandlebars();
+ 
+@@ -517,40 +517,6 @@ Hooks.on("hotbarDrop", (bar, data, slot) => {
+     return false;
+ });
+ 
+-function registerMathFunctions() {
+-    function lookup(value) {
+-        for (let i = 1; i < arguments.length - 1; i += 2) {
+-            if (arguments[i] === value) {
+-                return arguments[i + 1];
+-            }
+-        }
+-        return 0;
+-    }
+-
+-    function lookupRange(value, lowestValue) {
+-        let baseValue = lowestValue;
+-        for (let i = 2; i < arguments.length - 1; i += 2) {
+-            if (arguments[i] > value) {
+-                return baseValue;
+-            }
+-            baseValue = arguments[i + 1];
+-        }
+-        return baseValue;
+-    }
+-
+-    Roll.MATH_PROXY = mergeObject(Roll.MATH_PROXY, {
+-        eq: (a, b) => a === b,
+-        gt: (a, b) => a > b,
+-        gte: (a, b) => a >= b,
+-        lt: (a, b) => a < b,
+-        lte: (a, b) => a <= b,
+-        ne: (a, b) => a !== b,
+-        ternary: (condition, ifTrue, ifFalse) => (condition ? ifTrue : ifFalse),
+-        lookup,
+-        lookupRange
+-    });
+-}
+-
+ /**
+  * Create a Macro form an Item drop.
+  * Get an existing item macro if one exists, otherwise create a new one.
+@@ -826,12 +792,12 @@ function setupHandlebars() {
+ 
+ Hooks.on("renderSidebarTab", async (app, html) => {
+     if (app.options.id === "settings") {
+-        const textToAdd = `<br/><a href="https://github.com/foundryvtt-starfinder/foundryvtt-starfinder/blob/master/changelist.md">Starfinder Patch Notes</a>`;
++        const textToAdd = `<a href="https://github.com/foundryvtt-starfinder/foundryvtt-starfinder/blob/master/changelist.md">Starfinder Patch Notes</a>`;
+         const gameDetails = document.getElementById("game-details");
+         if (gameDetails) {
+             const systemSection = gameDetails.getElementsByClassName("system")[0];
+             if (systemSection) {
+-                systemSection.innerHTML += textToAdd;
++                systemSection.insertAdjacentHTML("afterend", textToAdd);
+             }
+         }
+     }
+diff --git a/src/system.json b/src/system.json
+index 727d1f5ca..178c21fb0 100644
+--- a/src/system.json
++++ b/src/system.json
+@@ -241,8 +241,8 @@
+     "secondaryTokenAttribute": "attributes.sp",
+     "compatibility": {
+         "minimum": 10,
+-        "verified": "10.291",
+-        "maximum": 10
++        "verified": "10.297",
++        "maximum": 11
+     },
+     "url": "https://github.com/foundryvtt-starfinder/foundryvtt-starfinder",
+     "manifest": "https://raw.githubusercontent.com/foundryvtt-starfinder/foundryvtt-starfinder/master/src/system.json",
+-- 
+2.39.0.windows.1
+

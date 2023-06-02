@@ -37,6 +37,7 @@
     "del": "^5.1.0",
     "eslint": "^8.28.0",
     "eslint-plugin-json": "^3.1.0",
+    "foundry-db-packer": "^v0.2.0"
     "fs-extra": "^9.0.1",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",

@@ -5,6 +5,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Cache NPM Deps
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: node_modules/
+          key: npm-${{ hashFiles('package-lock.json') }}
+
+      - name: Install NPM Deps
+        if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        run: |
+          npm ci
+          
+          
       - name: FoundryVTT Release DB Packer
         uses: aMediocreDad/foundry-db-packer@v0.2.0
         with:

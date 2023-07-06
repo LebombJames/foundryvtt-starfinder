@@ -5,6 +5,7 @@ import { SpellCastDialog } from "../apps/spell-cast-dialog.js";
 import { SFRPG } from "../config.js";
 import { DiceSFRPG } from "../dice.js";
 import RollContext from "../rolls/rollcontext.js";
+import { TokenEffect } from "../token/token-effect.js";
 import { Mix } from "../utils/custom-mixer.js";
 import { ActorConditionsMixin } from "./mixins/actor-conditions.js";
 import { ActorCrewMixin } from "./mixins/actor-crew.js";
@@ -16,6 +17,7 @@ import { ActorRestMixin } from "./mixins/actor-rest.js";
 
 import { ItemSFRPG } from "../item/item.js";
 import { ItemSheetSFRPG } from "../item/sheet.js";
+import SFRPGTimedEffect from "../timedEffect/timedEffect.js";
 import { } from "./crew-update.js";
 
 /**
@@ -54,6 +56,15 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
         // console.log(`Constructor for actor named ${data.name} of type ${data.type}`);
     }
 
+    // Temporary effects are displayed on the token, so hijack it and include effects
+    get temporaryEffects() {
+        const fromEffects = this.items
+            .filter((e) => e.type === "effect" && e.system.showOnToken && e.system.enabled)
+            .map((e) => new TokenEffect(e));
+
+        return [...super.temporaryEffects, ...fromEffects];
+    }
+
     /** @override */
     getRollData() {
         const data = super.getRollData();
@@ -72,6 +83,9 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
 
         this._ensureHasModifiers(this.system);
         const modifiers = this.getAllModifiers();
+
+        // const timedEffects = SFRPGTimedEffect.getAllTimedEffects(this);
+        this.system.timedEffects = new Map();
 
         const items = this.items;
         const armors = items.filter(item => item.type === "equipment" && item.system.equipped);
@@ -100,6 +114,7 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
             classes,
             chassis,
             modifiers,
+            // timedEffects,
             theme,
             mods,
             armorUpgrades,
@@ -151,33 +166,6 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
         }
 
         return super.update(data, options);
-    }
-
-    /**
-     * Extend OwnedItem creation logic for the SFRPG system to make weapons proficient by default when dropped on a NPC sheet
-     * See the base Actor class for API documentation of this method
-     *
-     * @param {String} embeddedName The type of Entity being embedded.
-     * @param {Object} itemData The data object of the item
-     * @param {Object} options Any options passed in
-     * @returns {Promise}
-     */
-    async createEmbeddedDocuments(embeddedName, itemData, options) {
-        for (const item of itemData) {
-            if (!this.hasPlayerOwner) {
-                const t = item.type;
-                const initial = {};
-                if (t === "weapon") initial['system.proficient'] = true;
-                if (["weapon", "equipment"].includes(t)) initial['system.equipped'] = true;
-                if (t === "spell") initial['system.prepared'] = true;
-                mergeObject(item, initial);
-            }
-
-            if (item.effects instanceof Array) item.effects = null;
-            else if (item.effects instanceof Map) item.effects.clear();
-        }
-
-        return super.createEmbeddedDocuments(embeddedName, itemData, options);
     }
 
     /**
@@ -254,6 +242,55 @@ export class ActorSFRPG extends Mix(Actor).with(ActorConditionsMixin, ActorCrewM
     _onUpdate(data, options, userId) {
         super._onUpdate(data, options, userId);
         this.floatingHpOnUpdate(this, data, options, userId);
+    }
+
+    /**
+     * Delete any of corresponding timedEffect objects of the actor's items.
+     */
+    async _onDelete(options, userId) {
+        for (const item of this.items) {
+            if (item.type === "effect") {
+                const effect = game.sfrpg.timedEffects.get(item.uuid);
+                if (!effect) continue;
+
+                // Need to pass the item since the item has already been deleted from the server
+                effect.delete(item);
+            }
+
+        }
+
+        return super._onDelete(options, userId);
+    }
+
+    /**
+     * Toggle scrolling text for created effects
+     */
+    _onCreateDescendantDocuments(parent, collection, documents, data, options, userId) {
+        for (const item of documents) {
+            const itemData = item.system;
+
+            if (item.type === "effect" && itemData.showOnToken && itemData.enabled) {
+                SFRPGTimedEffect.createScrollingText(item, true);
+            }
+        }
+
+        super._onCreateDescendantDocuments(parent, collection, documents, data, options, userId);
+    }
+
+    /**
+     * Delete item's corresponding timedEffect objects
+     */
+    _onDeleteDescendantDocuments(parent, collection, documents, data, options, userId) {
+        for (const item of documents) {
+            if (item.type === 'effect') {
+                const effect = game.sfrpg.timedEffects.get(item.uuid);
+                if (!effect) continue;
+
+                effect.delete();
+            }
+        }
+
+        return super._onDeleteDescendantDocuments(parent, collection, documents, data, options, userId);
     }
 
     async useSpell(item, { configureDialog = true } = {}) {

@@ -1010,7 +1010,7 @@ export class DiceSFRPG {
     }
 
     /**
-     * The below is copied from the DnD5e system on Foundry (https://github.com/foundryvtt/dnd5e/blob/master/module/dice/simplify-roll-formula.mjs) under MIT License (see LICENSE.MD)
+     * The below is copied from the DnD5e system on Foundry (https://github.com/foundryvtt/dnd5e/blob/master/module/dice/simplify-roll-formula.mjs) under MIT License (see LICENSE)
      * Copyright 2021 Andrew Clayton
      */
 

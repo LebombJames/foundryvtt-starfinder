@@ -1,6 +1,10 @@
 import "@client/global.mjs";
 import Canvas from "@client/canvas/board.mjs";
 
+// This file and the majority of our "typing" is based off of the work of ChaosOS:
+// https://github.com/MetaMorphic-Digital/draw-steel/blob/develop/draw-steel.d.ts
+// Copyright 2024 MetaMorphic Digital (MIT License)
+
 declare global {
     // not a real extension of course but simplest way for this to work with the intellisense.
     /**

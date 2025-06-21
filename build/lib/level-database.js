@@ -74,7 +74,7 @@ export default class LevelDatabase extends ClassicLevel {
 
         await this.compactClassicLevel();
 
-        this.close();
+        await this.close();
         console.log(chalk.greenBright(`> Finished processing data for ${packName}.`));
     }
 
@@ -145,11 +145,11 @@ export default class LevelDatabase extends ClassicLevel {
     async compactClassicLevel() {
         const forwardIterator = this.keys({ limit: 1, fillCache: false });
         const firstKey = await forwardIterator.next();
-        forwardIterator.close();
+        await forwardIterator.close();
 
         const backwardIterator = this.keys({ limit: 1, reverse: true, fillCache: false });
         const lastKey = await backwardIterator.next();
-        backwardIterator.close();
+        await backwardIterator.close();
 
         if (firstKey && lastKey) return this.compactRange(firstKey, lastKey, { keyEncoding: "utf8" });
     }

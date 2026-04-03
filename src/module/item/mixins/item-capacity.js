@@ -316,7 +316,7 @@ export const ItemCapacityMixin = (superclass) => class extends superclass {
                 content: html
             };
 
-            const rollMode = game.settings.get("core", "rollMode");
+            const rollMode = game.settings.get("core", "messageMode");
             ChatMessage.applyRollMode(chatData, rollMode);
             ChatMessage.create(chatData, { displaySheet: false });
         });

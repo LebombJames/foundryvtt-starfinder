@@ -713,7 +713,7 @@ export class CombatSFRPG extends foundry.documents.Combat {
         // Structure input data
         ids = typeof ids === "string" ? [ids] : ids;
         const currentId = this.combatant?.id;
-        const defaultRollMode = game.settings.get("core", "rollMode");
+        const defaultRollMode = game.settings.get("core", "messageMode");
         let rollMode = messageOptions.rollMode ?? defaultRollMode;
 
         // Iterate over Combatants, performing an initiative roll for each

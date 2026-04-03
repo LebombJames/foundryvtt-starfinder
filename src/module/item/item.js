@@ -457,7 +457,7 @@ export class ItemSFRPG extends Mix(foundry.documents.Item).with(ItemActivationMi
             speaker: token ? ChatMessage.getSpeaker({token: token}) : ChatMessage.getSpeaker({actor: this.actor})
         };
 
-        const rollMode = game.settings.get("core", "rollMode");
+        const rollMode = game.settings.get("core", "messageMode");
         ChatMessage.applyRollMode(chatData, rollMode);
 
         // Create the chat message
@@ -1699,7 +1699,7 @@ export class ItemSFRPG extends Mix(foundry.documents.Item).with(ItemActivationMi
                     content: html
                 };
 
-                const rollMode = game.settings.get("core", "rollMode");
+                const rollMode = game.settings.get("core", "messageMode");
                 ChatMessage.applyRollMode(chatData, rollMode);
                 ChatMessage.create(chatData, { displaySheet: false });
             });
@@ -1729,12 +1729,12 @@ export class ItemSFRPG extends Mix(foundry.documents.Item).with(ItemActivationMi
         const success = roll.total >= parseInt(data.recharge.value);
 
         // Display a Chat Message
-        const rollMode = game.settings.get("core", "rollMode");
+        const rollMode = game.settings.get("core", "messageMode");
         const chatData = {
             author: game.user.id,
             type: CONST.CHAT_MESSAGE_STYLES.OTHER,
             flavor: `${this.name} recharge check - ${success ? "success!" : "failure!"}`,
-            whisper: (["gmroll", "blindroll"].includes(rollMode)) ? ChatMessage.getWhisperRecipients("GM") : null,
+            whisper: (["gmroll", "blindroll"].include) ? ChatMessage.getWhisperRecipients("GM") : null,
             blind: rollMode === "blindroll",
             rolls: [roll],
             speaker: ChatMessage.getSpeaker({

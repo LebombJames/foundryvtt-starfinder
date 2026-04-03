@@ -1,7 +1,7 @@
 import { ChoiceDialog } from "../../apps/choice-dialog.js";
 
 export class SFRPGHealingSetting {
-    constructor({stamina = false, hitpoints = true, temp = false} = {}) {
+    constructor({ stamina = false, hitpoints = true, temp = false } = {}) {
         this.healsStamina = stamina;
         this.healsHitpoints = hitpoints;
         this.healsTemporaryHitpoints = temp;
@@ -196,7 +196,7 @@ export const ActorDamageMixin = (superclass) => class extends superclass {
                             <input type="number" id="modifier" placeholder=0 autofocus />
                         </div>
                         ${(multiplier < 0) // Is healing
-                        ? `
+                            ? `
                             <div class="form-group">
                                 <label for="apply-healing">${game.i18n.localize("SFRPG.ChatCard.ContextMenu.ApplyHealingTo")}</label>
                                 <select name="apply-healing" id="apply-healing">
@@ -206,7 +206,7 @@ export const ActorDamageMixin = (superclass) => class extends superclass {
                                 </select>
                             </div>
                         `
-                        : `
+                            : `
                             <div class="form-group">
                                 <label for="bypass-stamina">${game.i18n.localize("SFRPG.ChatCard.ContextMenu.BypassStamina")}</label>
                                 <input type=checkbox name="bypass-stamina" id="bypass-stamina" />
@@ -398,7 +398,7 @@ export const ActorDamageMixin = (superclass) => class extends superclass {
             actorUpdate["system.attributes.hp.temp"] = newTempHP;
 
             if (!damage?.options?.bypassStamina) {
-            /** Update stamina points */
+                /** Update stamina points */
                 const newSP = Math.clamp(originalSP - remainingUndealtDamage, 0, actorData.attributes?.sp?.max || 0);
                 remainingUndealtDamage -= (originalSP - newSP);
 
@@ -413,8 +413,8 @@ export const ActorDamageMixin = (superclass) => class extends superclass {
 
             /** If the remaining undealt damage is equal to or greater than the max hp, the character dies of Massive Damage. */
             if (this.type === "character" && remainingUndealtDamage >= actorData.attributes.hp.max) {
-                const localizedDeath = game.i18n.format("SFRPG.CharacterSheet.Warnings.DeathByMassiveDamage", {name: this.name});
-                ui.notifications.warn(localizedDeath, {permanent: true});
+                const localizedDeath = game.i18n.format("SFRPG.CharacterSheet.Warnings.DeathByMassiveDamage", { name: this.name });
+                ui.notifications.warn(localizedDeath, { permanent: true });
             }
         } else {
             if (damage.healSettings.healsHitpoints) {
@@ -536,7 +536,7 @@ export const ActorDamageMixin = (superclass) => class extends superclass {
             game.i18n.format("SFRPG.StarshipSheet.Damage.Quadrant.Aft")
         ];
         const results = await ChoiceDialog.show(
-            game.i18n.format("SFRPG.StarshipSheet.Damage.Title", {name: this.name}),
+            game.i18n.format("SFRPG.StarshipSheet.Damage.Title", { name: this.name }),
             game.i18n.format("SFRPG.StarshipSheet.Damage.Message"),
             {
                 quadrant: {
@@ -663,16 +663,16 @@ export const ActorDamageMixin = (superclass) => class extends superclass {
         let timesToRoll = 0;
         const rollMode = this.token?.disposition === -1 && game.settings.get("sfrpg", "hideHostileStarshipCrit")
             ? CONST.DICE_ROLL_MODES.PRIVATE
-            : game.settings.get("core", "rollMode");
+            : game.settings.get("core", "messageMode");
 
         if (newCT > originalCT) {
             const crossedThresholds = newCT - originalCT;
-            const warningMessage = game.i18n.format("SFRPG.StarshipSheet.Damage.CrossedCriticalThreshold", {name: this.name, crossedThresholds: crossedThresholds});
+            const warningMessage = game.i18n.format("SFRPG.StarshipSheet.Damage.CrossedCriticalThreshold", { name: this.name, crossedThresholds: crossedThresholds });
             timesToRoll += crossedThresholds;
             ui.notifications.warn(warningMessage);
             const chatData = {
                 user: game.user.id,
-                speaker: ChatMessage.getSpeaker({actor: this}),
+                speaker: ChatMessage.getSpeaker({ actor: this }),
                 content: warningMessage,
                 type: CONST.CHAT_MESSAGE_STYLES.OTHER
             };
@@ -682,11 +682,11 @@ export const ActorDamageMixin = (superclass) => class extends superclass {
 
         if (damage.isCritical && newHullPoints !== originalHullPoints) {
             timesToRoll++;
-            const warningMessage = game.i18n.format((newCT > originalCT) ?  "SFRPG.StarshipSheet.Damage.Nat20WithThreshold" : "SFRPG.StarshipSheet.Damage.Nat20", {name: this.name});
+            const warningMessage = game.i18n.format((newCT > originalCT) ? "SFRPG.StarshipSheet.Damage.Nat20WithThreshold" : "SFRPG.StarshipSheet.Damage.Nat20", { name: this.name });
             ui.notifications.warn(warningMessage);
             const chatData = {
                 user: game.user.id,
-                speaker: ChatMessage.getSpeaker({actor: this}),
+                speaker: ChatMessage.getSpeaker({ actor: this }),
                 content: warningMessage,
                 type: CONST.CHAT_MESSAGE_STYLES.OTHER
             };

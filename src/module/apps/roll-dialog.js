@@ -71,7 +71,7 @@ export default class RollDialog extends Dialog {
 
         /** Returned values */
         this.additionalBonus = "";
-        this.rollMode = game.settings.get("core", "rollMode");
+        this.rollMode = game.settings.get("core", "messageMode");
         this.rolledButton = null;
 
         // tooltips

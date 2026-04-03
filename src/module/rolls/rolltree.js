@@ -144,7 +144,7 @@ export default class RollTree {
     static buildRollSync(formula, contexts, options = {}) {
         return new RollTree(formula, contexts, options).#processRollRequest({
             button: options.defaultButton || (options.buttons ? (Object.values(options.buttons)[0].id ?? Object.values(options.buttons)[0].label) : "roll"),
-            mode: game.settings.get("core", "rollMode"),
+            mode: game.settings.get("core", "messageMode"),
             bonus: null,
             // TODO(levirak): don't roll every part when skipping UI? (E.g., when holding SHIFT)
             enabledParts: options.parts ?? [],
